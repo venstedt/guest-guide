@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f6f3ee">
+<title>Paikat | Ylläs Kajo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg: #f6f3ee;
+    --wood: #9a7552;
+    --light: #fff;
+    --text: #27323a;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-bottom: 96px;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, sans-serif;
+    line-height: 1.6;
+}
+
+main {
+    width: min(100%, 760px);
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 24px 17px 120px;
+    border-top: 1px solid #e8e0d7;
+}
+
+h1 {
+    margin: 0 0 18px;
+    color: #222;
+    font-size: clamp(1.8rem, 7vw, 2.2rem);
+    font-weight: 400;
+    letter-spacing: -.06em;
+    line-height: 1.3;
+}
+
+.area-switch {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+    margin: 0 0 14px;
+    padding: 4px;
+    border-radius: 28px;
+    background: #eee9e1;
+}
+
+.area-switch button {
+    min-height: 40px;
+    padding: 8px 14px;
+    border: 0;
+    border-radius: 24px;
+    background: transparent;
+    color: #171717;
+    font: inherit;
+    font-size: .82rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.area-switch button[aria-pressed="true"] {
+    background: #171717;
+    color: var(--light);
+}
+
+.area-switch button:focus-visible {
+    outline: 3px solid var(--wood);
+    outline-offset: 2px;
+}
+
+.place-list {
+    display: grid;
+    gap: 12px;
+}
+
+.area-group[hidden] {
+    display: none;
+}
+
+.place-group {
+    display: grid;
+    gap: 10px;
+}
+
+.place-group h2 {
+    margin: 8px 2px 0;
+    color: #4b514a;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.place-card {
+    display: grid;
+    width: 100%;
+    min-height: 96px;
+    grid-template-columns: 70px minmax(0, 1fr) 18px;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid #e6ddd3;
+    border-radius: 17px;
+    background: var(--light);
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: transform .16s ease, box-shadow .16s ease;
+}
+
+.place-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 16px rgba(0, 0, 0, .08);
+}
+
+.place-card:focus-visible,
+.map-close:focus-visible,
+nav a:focus-visible {
+    outline: 3px solid var(--wood);
+    outline-offset: 3px;
+}
+
+.place-icon {
+    display: grid;
+    width: 70px;
+    height: 70px;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 13px;
+    background: linear-gradient(145deg, #dbe5e8, #8796a0);
+    color: #fff;
+}
+
+.place-card:nth-child(2) .place-icon {
+    background: linear-gradient(145deg, #e8c9d8, #9877a2);
+}
+
+.place-card:nth-child(3) .place-icon {
+    background: linear-gradient(145deg, #d8e5dd, #71867b);
+}
+
+.place-group .place-card .place-icon {
+    background: linear-gradient(145deg, #e9e3d9, #a48d70);
+}
+
+.place-group .place-card[data-kind="restaurant"] .place-icon,
+.place-group .place-card[data-kind="cafe"] .place-icon {
+    background: linear-gradient(145deg, #f0d9cc, #b86b4f);
+}
+
+.place-group .place-card[data-kind="rental"] .place-icon,
+.place-group .place-card[data-kind="activity"] .place-icon {
+    background: linear-gradient(145deg, #d6e5e8, #6c8791);
+}
+
+.place-icon svg {
+    width: 34px;
+    height: 34px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+}
+
+.place-copy {
+    min-width: 0;
+}
+
+.place-category {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 2px;
+    color: #383d38;
+    font-size: .64rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    line-height: 1.3;
+    text-transform: uppercase;
+}
+
+.place-category svg {
+    width: 13px;
+    height: 13px;
+    flex: 0 0 auto;
+    fill: none;
+    stroke: #587453;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+}
+
+.place-name {
+    display: block;
+    color: #222;
+    font-size: .9rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.place-distance {
+    display: block;
+    margin-top: 3px;
+    color: #555;
+    font-size: .72rem;
+    line-height: 1.4;
+}
+
+.source-note {
+    margin: 18px 2px 0;
+    color: #666;
+    font-size: .74rem;
+}
+
+.source-note a {
+    color: #31453a;
+    font-weight: 600;
+    text-underline-offset: 2px;
+}
+
+.place-chevron {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: #222;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+}
+
+.map-dialog {
+    position: fixed;
+    inset: 0;
+    width: min(calc(100% - 24px), 900px);
+    height: min(88vh, 780px);
+    height: min(88dvh, 780px);
+    max-width: none;
+    max-height: none;
+    margin: auto;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: 20px;
+    background: var(--light);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, .25);
+}
+
+.map-dialog::backdrop {
+    background: rgba(20, 24, 22, .58);
+    backdrop-filter: blur(3px);
+}
+
+.map-dialog iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.map-close {
+    position: absolute;
+    z-index: 1;
+    top: 12px;
+    right: 12px;
+    display: grid;
+    width: 46px;
+    height: 46px;
+    place-items: center;
+    border: 1px solid rgba(0, 0, 0, .12);
+    border-radius: 50%;
+    background: #fff;
+    color: #222;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .18);
+    font: inherit;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+nav {
+    position: fixed;
+    z-index: 999;
+    right: max(8px, env(safe-area-inset-right));
+    bottom: max(8px, env(safe-area-inset-bottom));
+    left: max(8px, env(safe-area-inset-left));
+    display: grid;
+    width: min(calc(100% - 16px), 520px);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    margin: 0 auto;
+    padding: 6px;
+    border: 1px solid rgba(226, 219, 210, .9);
+    border-radius: 32px;
+    background: rgba(255, 255, 255, .94);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .16);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+}
+
+nav a {
+    display: flex;
+    min-width: 0;
+    min-height: 54px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 4px 2px;
+    border-radius: 22px;
+    color: #252525;
+    font-size: .65rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+nav a svg {
+    width: 21px;
+    height: 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+}
+
+nav a[aria-current="page"] {
+    background: #171717;
+    color: var(--light);
+}
+
+@media (max-width: 360px) {
+    main {
+        padding-right: 14px;
+        padding-left: 14px;
+    }
+
+    .place-card {
+        grid-template-columns: 62px minmax(0, 1fr) 16px;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .place-icon {
+        width: 62px;
+        height: 62px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .place-card {
+        transition: none;
+    }
+}
+</style>
+</head>
+<body>
+<main>
+    <h1>Paikat Ylläksellä</h1>
+    <div class="area-switch" role="group" aria-label="Valitse kylä">
+        <button type="button" data-area-tab="yllasjarvi" aria-pressed="true">Ylläsjärvi</button>
+        <button type="button" data-area-tab="akaslompolo" aria-pressed="false">Äkäslompolo</button>
+    </div>
+    <div class="place-list" id="placesList" aria-label="Ylläsjärven palvelut">
+        <section class="place-group area-group" data-area-panel="yllasjarvi" aria-labelledby="attractionsTitle">
+            <h2 id="attractionsTitle">Nähtävyydet ja palvelut</h2>
+            <button class="place-card" type="button" data-place="Ylläs Ski Resort Ylläsjärvi, Finland" data-kind="activity">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M6 33 19 8l15 25M10 26h20M14 18h13M4 34h32"></path><path d="M17 8h5M19 8v7"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 14s5-5 5-8a5 5 0 1 0-10 0c0 3 5 8 5 8Z"></path><circle cx="8" cy="6" r="1.5"></circle></svg>Hiihtokeskus</span><span class="place-name">Ylläs Ski Resort Ylläsjärvi</span><span class="place-distance">Rinteet, hissit ja palvelut</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+        </section>
+
+        <section class="place-group area-group" data-area-panel="yllasjarvi" aria-labelledby="shopsTitle">
+            <h2 id="shopsTitle">Ruokakaupat</h2>
+            <button class="place-card" type="button" data-place="K-Market Eelin kauppa, Ylläsjärvi, Finland" data-kind="market">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M6 9h4l3 18h18l4-13H11"></path><circle cx="16" cy="33" r="2"></circle><circle cx="29" cy="33" r="2"></circle><path d="M17 19h12M23 13v12"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3h2l1.5 8h7L14 5H5"></path><circle cx="7" cy="14" r=".8"></circle><circle cx="12" cy="14" r=".8"></circle></svg>Ruokakauppa</span><span class="place-name">K-market Eelin kauppa</span><span class="place-distance">Ruokakauppa Ylläsjärven keskustassa</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <button class="place-card" type="button" data-place="Ylläspuoti Minimarket, Ylläsjärvi, Finland" data-kind="market">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M7 16h26v18H7zM5 16l3-9h24l3 9"></path><path d="M5 16c0 3 4 3 4 0 0 3 5 3 5 0 0 3 5 3 5 0 0 3 5 3 5 0 0 3 6 3 6 0M16 34V24h8v10"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3h2l1.5 8h7L14 5H5"></path><circle cx="7" cy="14" r=".8"></circle><circle cx="12" cy="14" r=".8"></circle></svg>Ruokakauppa</span><span class="place-name">Ylläspuoti Minimarket</span><span class="place-distance">Pieni ruokakauppa hiihtokeskuksessa</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+        </section>
+
+        <section class="place-group area-group" data-area-panel="yllasjarvi" aria-labelledby="restaurantsTitle">
+            <h2 id="restaurantsTitle">Ravintolat ja kahvilat</h2>
+            <button class="place-card" type="button" data-place="Taiga Ylläs, Ylläsjärvi, Finland" data-kind="restaurant">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 7v12M13 7v12M18 7v12M8 13h10M13 19v14M27 7v26M27 7c7 4 7 12 0 15"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2v5a3 3 0 0 0 6 0V2M5 2v12M12 2v12M12 2c3 2 3 5 0 7"></path></svg>Ravintola ja pubi</span><span class="place-name">Taiga Ylläs</span><span class="place-distance">Ylläsjärvellä rinteiden lähellä</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <button class="place-card" type="button" data-place="Loimu Bistro, Ylläsjärvi, Finland" data-kind="restaurant">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 7v12M13 7v12M18 7v12M8 13h10M13 19v14M27 7v26M27 7c7 4 7 12 0 15"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2v5a3 3 0 0 0 6 0V2M5 2v12M12 2v12M12 2c3 2 3 5 0 7"></path></svg>Bistro</span><span class="place-name">Loimu Bistro</span><span class="place-distance">Ravintola Ylläsjärven rannalla</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <button class="place-card" type="button" data-place="Miilu Bar &amp; Grill, Ylläsjärvi, Finland" data-kind="restaurant">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 7v12M13 7v12M18 7v12M8 13h10M13 19v14M27 7v26M27 7c7 4 7 12 0 15"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2v5a3 3 0 0 0 6 0V2M5 2v12M12 2v12M12 2c3 2 3 5 0 7"></path></svg>Ravintola</span><span class="place-name">Miilu Bar &amp; Grill</span><span class="place-distance">Ravintola Ylläsjärven rannalla</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <button class="place-card" type="button" data-place="Ravintola Otso, Iso-Ylläksentie 1, Ylläsjärvi, Finland" data-kind="restaurant">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 7v12M13 7v12M18 7v12M8 13h10M13 19v14M27 7v26M27 7c7 4 7 12 0 15"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2v5a3 3 0 0 0 6 0V2M5 2v12M12 2v12M12 2c3 2 3 5 0 7"></path></svg>Ravintola</span><span class="place-name">Ravintola Otso Ylläsjärvi</span><span class="place-distance">Iso-Ylläksentie 1</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <button class="place-card" type="button" data-place="Bistro Hissi, Ylläs Ski South, Ylläsjärvi, Finland" data-kind="restaurant">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 7v12M13 7v12M18 7v12M8 13h10M13 19v14M27 7v26M27 7c7 4 7 12 0 15"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2v5a3 3 0 0 0 6 0V2M5 2v12M12 2v12M12 2c3 2 3 5 0 7"></path></svg>Rinneravintola</span><span class="place-name">Bistro Hissi</span><span class="place-distance">Ylläs Ski South, tuolihissin vieressä</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <button class="place-card" type="button" data-place="Lapland Hotels Saaga restaurants, Ylläsjärvi, Finland" data-kind="restaurant">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 7v12M13 7v12M18 7v12M8 13h10M13 19v14M27 7v26M27 7c7 4 7 12 0 15"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2v5a3 3 0 0 0 6 0V2M5 2v12M12 2v12M12 2c3 2 3 5 0 7"></path></svg>Hotelliravintolat</span><span class="place-name">Lapland Hotels Saagan ravintolat</span><span class="place-distance">Biegga, Bistro ja Tsohka</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <button class="place-card" type="button" data-place="Bar Kaappi, Ylläs Ski Resort Ylläsjärvi, Finland" data-kind="restaurant">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M10 8h20l-2 23H12L10 8zM8 8h24M15 14h10M18 4h4"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h8l-1 11H5L4 2zM3 2h10M6 5h4"></path></svg>After ski -baari</span><span class="place-name">Bar Kaappi</span><span class="place-distance">Ylläs Ski Resort Ylläsjärvi</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <button class="place-card" type="button" data-place="Cafe Lippuluukku, Ylläsjärvi, Finland" data-kind="cafe">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 14h22v13a7 7 0 0 1-7 7h-8a7 7 0 0 1-7-7V14zM30 17h3a4 4 0 0 1 0 8h-4M13 8c-2-2 2-3 0-5M21 8c-2-2 2-3 0-5"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6h9v5a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V6zM12 7h1a2 2 0 0 1 0 4h-1M5 3C4 2 6 2 5 1"></path></svg>Kahvila</span><span class="place-name">Cafe Lippuluukku</span><span class="place-distance">Ylläs 1 Gondolin ala-asemalla</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <button class="place-card" type="button" data-place="Kahvikeidas Ylläsjärvi, Finland" data-kind="cafe">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 14h22v13a7 7 0 0 1-7 7h-8a7 7 0 0 1-7-7V14zM30 17h3a4 4 0 0 1 0 8h-4M13 8c-2-2 2-3 0-5M21 8c-2-2 2-3 0-5"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6h9v5a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V6zM12 7h1a2 2 0 0 1 0 4h-1M5 3C4 2 6 2 5 1"></path></svg>Latukahvila</span><span class="place-name">Kahvikeidas</span><span class="place-distance">Latukahvila noin 2 km hiihtokeskuksesta</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+        </section>
+
+        <section class="place-group area-group" data-area-panel="yllasjarvi" aria-labelledby="rentalsTitle">
+            <h2 id="rentalsTitle">Vuokraamot</h2>
+            <button class="place-card" type="button" data-place="Saaga Ski Rental, Lapland Hotels Saaga, Ylläsjärvi, Finland" data-kind="rental">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M7 31 31 8M11 35 35 12M5 25l9 9M26 7l9 9M8 15h8M12 11v8M26 29h8M30 25v8"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 12 12 2M4 14l10-10M1 10l5 5M10 1l5 5"></path></svg>Välinevuokraamo</span><span class="place-name">Saaga Ski Rental</span><span class="place-distance">Sukset ja hissiliput · Lapland Hotels Saaga</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <button class="place-card" type="button" data-place="HILL SKI RENT, Ylläsjärvi, Finland" data-kind="rental">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M7 31 31 8M11 35 35 12M5 25l9 9M26 7l9 9M8 15h8M12 11v8M26 29h8M30 25v8"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 12 12 2M4 14l10-10M1 10l5 5M10 1l5 5"></path></svg>Välinevuokraamo</span><span class="place-name">HILL SKI RENT</span><span class="place-distance">Laskettelu-, lumilauta- ja maastohiihtovälineet</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <button class="place-card" type="button" data-place="TunturiFlow, Ylläsjärvi, Finland" data-kind="rental">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M7 31 31 8M11 35 35 12M5 25l9 9M26 7l9 9M8 15h8M12 11v8M26 29h8M30 25v8"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 12 12 2M4 14l10-10M1 10l5 5M10 1l5 5"></path></svg>Elämykset ja vuokraus</span><span class="place-name">TunturiFlow</span><span class="place-distance">Moottorikelkat, MoonBiket ja hiihtovälineet</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+        </section>
+
+        <section class="place-group area-group" data-area-panel="akaslompolo" aria-labelledby="akaslompoloAttractionsTitle" hidden>
+            <h2 id="akaslompoloAttractionsTitle">Nähtävyydet ja palvelut</h2>
+            <button class="place-card" type="button" data-place="Y1 Ski Resort, Äkäslompolo, Finland" data-kind="activity">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M6 33 19 8l15 25M10 26h20M14 18h13M4 34h32"></path><path d="M17 8h5M19 8v7"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 14s5-5 5-8a5 5 0 1 0-10 0c0 3 5 8 5 8Z"></path><circle cx="8" cy="6" r="1.5"></circle></svg>Hiihtokeskus</span><span class="place-name">Y1 Ski Resort Äkäslompolo</span><span class="place-distance">Rinteet, hissit ja palvelut</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <button class="place-card" type="button" data-place="Äkäslompolon kylä, Finland" data-kind="activity">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="m5 19 15-12 15 12M9 17v17h22V17M16 34V23h8v11M5 34h30"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 14s5-5 5-8a5 5 0 1 0-10 0c0 3 5 8 5 8Z"></path><circle cx="8" cy="6" r="1.5"></circle></svg>Kylä</span><span class="place-name">Äkäslompolon kylä</span><span class="place-distance">Palveluita kylän keskustassa</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+        </section>
+
+        <section class="place-group area-group" data-area-panel="akaslompolo" aria-labelledby="akaslompoloShopsTitle" hidden>
+            <h2 id="akaslompoloShopsTitle">Ruokakaupat</h2>
+            <button class="place-card" type="button" data-place="Jounin Kauppa, Äkäslompolo, Finland" data-kind="market">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M6 9h4l3 18h18l4-13H11"></path><circle cx="16" cy="33" r="2"></circle><circle cx="29" cy="33" r="2"></circle><path d="M17 19h12M23 13v12"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3h2l1.5 8h7L14 5H5"></path><circle cx="7" cy="14" r=".8"></circle><circle cx="12" cy="14" r=".8"></circle></svg>Ruokakauppa</span><span class="place-name">Jounin Kauppa</span><span class="place-distance">Kylän keskustassa</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+        </section>
+
+        <section class="place-group area-group" data-area-panel="akaslompolo" aria-labelledby="akaslompoloRestaurantsTitle" hidden>
+            <h2 id="akaslompoloRestaurantsTitle">Ravintolat ja kahvilat</h2>
+            <button class="place-card" type="button" data-place="Cafe & Bar Routa, Jounin Kauppa, Äkäslompolo, Finland" data-kind="cafe">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 14h22v13a7 7 0 0 1-7 7h-8a7 7 0 0 1-7-7V14zM30 17h3a4 4 0 0 1 0 8h-4M13 8c-2-2 2-3 0-5M21 8c-2-2 2-3 0-5"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6h9v5a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V6zM12 7h1a2 2 0 0 1 0 4h-1"></path></svg>Kahvila ja baari</span><span class="place-name">Cafe &amp; Bar Routa</span><span class="place-distance">Jounin Kaupan yhteydessä</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <button class="place-card" type="button" data-place="Public House Selvä Pyy, Jounin Kauppakeskus, Äkäslompolo, Finland" data-kind="restaurant">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M10 8h20l-2 23H12L10 8zM8 8h24M15 14h10M18 4h4"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h8l-1 11H5L4 2zM3 2h10M6 5h4"></path></svg>Pubi</span><span class="place-name">Public House Selvä Pyy</span><span class="place-distance">Jounin Kauppakeskuksessa</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <button class="place-card" type="button" data-place="Ravintola Rouhe, Äkäslompolo, Finland" data-kind="restaurant">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 7v12M13 7v12M18 7v12M8 13h10M13 19v14M27 7v26M27 7c7 4 7 12 0 15"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2v5a3 3 0 0 0 6 0V2M5 2v12M12 2v12M12 2c3 2 3 5 0 7"></path></svg>Ravintola</span><span class="place-name">Ravintola Rouhe</span><span class="place-distance">Äkäslompolon kylässä</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <button class="place-card" type="button" data-place="Ravintola Otso, Tunturintie 15, Äkäslompolo, Finland" data-kind="restaurant">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 7v12M13 7v12M18 7v12M8 13h10M13 19v14M27 7v26M27 7c7 4 7 12 0 15"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2v5a3 3 0 0 0 6 0V2M5 2v12M12 2v12M12 2c3 2 3 5 0 7"></path></svg>Ravintola</span><span class="place-name">Ravintola Otso Äkäslompolo</span><span class="place-distance">Tunturintie 15</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <button class="place-card" type="button" data-place="Jokerikuppila, Äkäslompolo Ski Resort, Finland" data-kind="cafe">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 14h22v13a7 7 0 0 1-7 7h-8a7 7 0 0 1-7-7V14zM30 17h3a4 4 0 0 1 0 8h-4M13 8c-2-2 2-3 0-5M21 8c-2-2 2-3 0-5"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6h9v5a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V6zM12 7h1a2 2 0 0 1 0 4h-1"></path></svg>Kahvila</span><span class="place-name">Jokerikuppila</span><span class="place-distance">Ylläs Ski Resortin Jokeririnteen alla</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <button class="place-card" type="button" data-place="Velhon Kota, Äkäslompolo-Kolari road, Finland" data-kind="cafe">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M5 32 20 7l15 25H5zM12 32V21h16v11M15 16h10"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 14 8 3l6 11H2zM5 14V9h6v5"></path></svg>Erämaakahvila</span><span class="place-name">Velhon Kota</span><span class="place-distance">Noin 3 km Äkäslompolosta, lyhyt kävelyreitti</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+        </section>
+
+        <section class="place-group area-group" data-area-panel="akaslompolo" aria-labelledby="akaslompoloRentalsTitle" hidden>
+            <h2 id="akaslompoloRentalsTitle">Vuokraamot</h2>
+            <button class="place-card" type="button" data-place="Y1 Ski Rental, Äkäslompolo Ski Resort, Finland" data-kind="rental">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M7 31 31 8M11 35 35 12M5 25l9 9M26 7l9 9M8 15h8M12 11v8M26 29h8M30 25v8"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 12 12 2M4 14l10-10M1 10l5 5M10 1l5 5"></path></svg>Välinevuokraamo</span><span class="place-name">Y1 välinevuokraamo</span><span class="place-distance">Sukset, lumilaudat, lumikengät ja huolto</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <button class="place-card" type="button" data-place="Lapland Safaris, Äkäslompolo, Finland" data-kind="rental">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M7 31 31 8M11 35 35 12M5 25l9 9M26 7l9 9M8 15h8M12 11v8M26 29h8M30 25v8"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 12 12 2M4 14l10-10M1 10l5 5M10 1l5 5"></path></svg>Välinevuokraamo</span><span class="place-name">Lapland Safaris</span><span class="place-distance">Talvi- ja kesäaktiviteettien varusteita</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <button class="place-card" type="button" data-place="SportShop Äkäslompolo, Finland" data-kind="rental">
+                <span class="place-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M7 31 31 8M11 35 35 12M5 25l9 9M26 7l9 9M8 15h8M12 11v8M26 29h8M30 25v8"></path></svg></span>
+                <span class="place-copy"><span class="place-category"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 12 12 2M4 14l10-10M1 10l5 5M10 1l5 5"></path></svg>Vuokraamo ja huolto</span><span class="place-name">SportShop Äkäslompolo</span><span class="place-distance">Pyörät, hiihto- ja talvivälineet</span></span>
+                <svg class="place-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+        </section>
+    </div>
+    <p class="source-note">Palveluiden aukioloajat ja valikoimat voivat vaihdella sesongin mukaan. <a href="https://yllas.fi/ravintolat/" target="_blank" rel="noopener noreferrer">Ravintolat</a> · <a href="https://yllas.fi/vuokraamot/" target="_blank" rel="noopener noreferrer">Vuokraamot</a></p>
+</main>
+
+<dialog class="map-dialog" id="placeMap" aria-label="Paikan sijainti kartalla">
+    <button class="map-close" id="closeMap" type="button" aria-label="Sulje kartta">&times;</button>
+    <iframe id="placeMapFrame" title="Paikan sijainti Google Maps -kartalla" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</dialog>
+
+<nav aria-label="Päänavigaatio">
+    <a href="index.html#koti">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7"></path><path d="M5 9v12h14V9"></path><path d="M9 21v-8h6v8"></path></svg>
+        <span>Koti</span>
+    </a>
+    <a href="ohjeet.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"></path><path d="M3 5.5A8 8 0 0 1 12 7a8 8 0 0 1 9-1.5V19a8 8 0 0 0-9 1.5A8 8 0 0 0 3 19z"></path></svg>
+        <span>Ohjeet</span>
+    </a>
+    <a href="saannot.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="18" rx="2"></rect><path d="M9 4V2h6v2"></path><path d="M9 10h6M9 14h6"></path></svg>
+        <span>Säännöt</span>
+    </a>
+    <a href="paikat.html" aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3z"></path><path d="M9 3v15M15 6v15"></path></svg>
+        <span>Paikat</span>
+    </a>
+    <a href="galleria.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><path d="m21 15-5-5L5 21"></path></svg>
+        <span>Galleria</span>
+    </a>
+    <a href="info.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg>
+        <span>Info</span>
+    </a>
+</nav>
+
+<script>
+const mapDialog = document.getElementById('placeMap');
+const mapFrame = document.getElementById('placeMapFrame');
+const placesList = document.getElementById('placesList');
+const areaTabs = document.querySelectorAll('[data-area-tab]');
+const areaPanels = document.querySelectorAll('[data-area-panel]');
+
+areaTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        const selectedArea = tab.dataset.areaTab;
+        areaTabs.forEach(areaTab => {
+            areaTab.setAttribute('aria-pressed', String(areaTab === tab));
+        });
+        areaPanels.forEach(panel => {
+            panel.hidden = panel.dataset.areaPanel !== selectedArea;
+        });
+        placesList.setAttribute(
+            'aria-label',
+            selectedArea === 'yllasjarvi'
+                ? (document.documentElement.lang === 'de' ? 'Angebote in Ylläsjärvi' : document.documentElement.lang === 'fr' ? 'Services à Ylläsjärvi' : document.documentElement.lang === 'en' ? 'Ylläsjärvi services' : 'Ylläsjärven palvelut')
+                : (document.documentElement.lang === 'de' ? 'Angebote in Äkäslompolo' : document.documentElement.lang === 'fr' ? 'Services à Äkäslompolo' : document.documentElement.lang === 'en' ? 'Äkäslompolo services' : 'Äkäslompolon palvelut')
+        );
+    });
+});
+
+document.querySelectorAll('.place-card').forEach(card => {
+    card.addEventListener('click', () => {
+        const place = card.dataset.place;
+        if (!place) return;
+        const placeName = card.querySelector('.place-name').textContent;
+        const locationLabel = document.documentElement.lang === 'de' ? 'auf der Karte' : document.documentElement.lang === 'fr' ? 'sur la carte' : document.documentElement.lang === 'en' ? 'on the map' : 'kartalla';
+        const mapLabel = document.documentElement.lang === 'de' ? 'auf Google Maps' : document.documentElement.lang === 'fr' ? 'sur Google Maps' : document.documentElement.lang === 'en' ? 'on Google Maps' : 'Google Maps -kartalla';
+        mapDialog.setAttribute('aria-label', `${placeName} ${locationLabel}`);
+        mapFrame.title = `${placeName} ${mapLabel}`;
+        mapFrame.src = `https://www.google.com/maps?q=${encodeURIComponent(place)}&output=embed`;
+        mapDialog.showModal();
+    });
+});
+
+document.getElementById('closeMap').addEventListener('click', () => mapDialog.close());
+mapDialog.addEventListener('click', event => {
+    if (event.target === mapDialog) mapDialog.close();
+});
+mapDialog.addEventListener('close', () => mapFrame.removeAttribute('src'));
+</script>
+<script src="assets/site.js"></script>
+</body>
+</html>

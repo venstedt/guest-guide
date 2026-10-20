@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f6f3ee">
+<title>Galleria | Ylläs Kajo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg: #f6f3ee;
+    --forest: #31453a;
+    --wood: #9a7552;
+    --light: #fff;
+    --text: #27323a;
+    --page-gutter: clamp(16px, 5vw, 40px);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-bottom: 96px;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, sans-serif;
+    line-height: 1.6;
+}
+
+main {
+    width: min(100%, 1248px);
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: clamp(32px, 6vw, 56px) var(--page-gutter) 120px;
+    border-top: 1px solid #e8e0d7;
+}
+
+.title {
+    margin: 0 0 25px;
+    color: #222;
+    font-size: clamp(1.7rem, 5vw, 2.2rem);
+    line-height: 1.2;
+}
+
+.gallery-navigation {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    gap: 4px;
+    margin: 0 0 14px;
+    padding: 4px;
+    border-radius: 28px;
+    background: #eee9e1;
+    scrollbar-width: none;
+}
+
+.gallery-navigation::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery-navigation button {
+    min-height: 40px;
+    flex: 1 1 0;
+    padding: 8px 14px;
+    border: 0;
+    border-radius: 24px;
+    background: transparent;
+    color: #171717;
+    font: inherit;
+    font-size: .82rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.gallery-navigation button[aria-pressed="true"] {
+    background: #171717;
+    color: var(--light);
+}
+
+.gallery-navigation button:focus-visible {
+    outline: 3px solid var(--wood);
+    outline-offset: 2px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: repeat(2, minmax(180px, 260px));
+    gap: 12px;
+}
+
+.gallery[hidden] {
+    display: none;
+}
+
+.gallery-empty {
+    margin: 0;
+    padding: 24px 20px;
+    border: 1px solid #e6ddd3;
+    border-radius: 18px;
+    background: var(--light);
+    color: #666;
+    font-size: .9rem;
+}
+
+.gallery img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    border-radius: 18px;
+    cursor: zoom-in;
+    object-fit: cover;
+}
+
+.gallery .big {
+    grid-row: 1 / 3;
+}
+
+.gallery img:focus-visible,
+.lightbox button:focus-visible,
+nav a:focus-visible {
+    outline: 3px solid var(--wood);
+    outline-offset: 3px;
+}
+
+.lightbox {
+    position: fixed;
+    z-index: 5000;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 56px 16px 24px;
+    background: rgba(0, 0, 0, .94);
+}
+
+.lightbox[aria-hidden="false"] {
+    display: flex;
+}
+
+.lightbox-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    touch-action: pan-y;
+}
+
+.lightbox img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.lightbox img:not(#lightboxImg) {
+    visibility: hidden;
+}
+
+.lightbox-stage.is-sliding img {
+    transition: transform 240ms ease;
+}
+
+.lightbox button {
+    position: absolute;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    display: grid;
+    width: 48px;
+    height: 48px;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: var(--light);
+    color: var(--text);
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+.lightbox .lightbox-previous,
+.lightbox .lightbox-next {
+    top: 50%;
+    right: auto;
+    z-index: 1;
+    width: 48px;
+    height: 48px;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, .94);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, .25);
+}
+
+.lightbox .lightbox-previous {
+    left: max(12px, env(safe-area-inset-left));
+}
+
+.lightbox .lightbox-next {
+    right: max(12px, env(safe-area-inset-right));
+}
+
+.lightbox .lightbox-previous svg,
+.lightbox .lightbox-next svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+}
+
+body.lightbox-open {
+    overflow: hidden;
+}
+
+nav {
+    position: fixed;
+    z-index: 999;
+    right: max(8px, env(safe-area-inset-right));
+    bottom: max(8px, env(safe-area-inset-bottom));
+    left: max(8px, env(safe-area-inset-left));
+    display: grid;
+    width: min(calc(100% - 16px), 520px);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    margin: 0 auto;
+    padding: 6px;
+    border: 1px solid rgba(226, 219, 210, .9);
+    border-radius: 32px;
+    background: rgba(255, 255, 255, .94);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .16);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+}
+
+nav a {
+    display: flex;
+    min-width: 0;
+    min-height: 54px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 4px 2px;
+    border-radius: 22px;
+    color: #252525;
+    font-size: .65rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+nav a svg {
+    width: 21px;
+    height: 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+}
+
+nav a[aria-current="page"] {
+    background: #171717;
+    color: var(--light);
+}
+
+@media (max-width: 760px) {
+    html {
+        scroll-padding-bottom: 88px;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: none;
+        gap: 10px;
+    }
+
+    .gallery img {
+        aspect-ratio: 1 / 1;
+    }
+
+    .gallery .big {
+        grid-row: auto;
+        grid-column: 1 / -1;
+        aspect-ratio: 16 / 10;
+    }
+
+    .gallery-navigation {
+        width: 100%;
+    }
+}
+
+@media (max-width: 420px) {
+    .gallery {
+        gap: 8px;
+    }
+
+    .gallery img {
+        border-radius: 14px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+</style>
+</head>
+<body>
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Kuvan suurennos" aria-hidden="true">
+    <button type="button" id="lightboxClose" aria-label="Sulje suurennettu kuva">&times;</button>
+    <button type="button" class="lightbox-previous" id="lightboxPrevious" aria-label="Edellinen kuva">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+    </button>
+    <div class="lightbox-stage" id="lightboxStage">
+        <img id="lightboxImg" alt="">
+        <img id="lightboxPreviousImg" alt="" aria-hidden="true">
+        <img id="lightboxNextImg" alt="" aria-hidden="true">
+    </div>
+    <button type="button" class="lightbox-next" id="lightboxNext" aria-label="Seuraava kuva">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+    </button>
+</div>
+
+<main>
+    <h1 class="title">Tutustu Ylläs Kajoon</h1>
+    <div class="gallery-navigation" role="group" aria-label="Kuvagallerian tilat">
+        <button type="button" data-gallery-tab="piha" aria-pressed="true">Piha</button>
+        <button type="button" data-gallery-tab="sisatilat" aria-pressed="false">Sisätilat</button>
+        <button type="button" data-gallery-tab="ymparisto" aria-pressed="false">Ympäristö</button>
+    </div>
+    <div class="gallery" data-gallery-panel="piha">
+        <img class="big" src="assets/Yllas Kajo-1.jpg" alt="Ylläs Kajon lomarakennus ulkoa" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon lomarakennus ulkoa" fetchpriority="high">
+        <img src="assets/Yllas Kajo-5.jpg" alt="Ylläs Kajon pihapiiri ja varasto" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon pihapiiri ja varasto" loading="lazy">
+        <img src="assets/Yllas Kajo-2.jpg" alt="Ylläs Kajon pihapiiri ja varasto" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon pihapiiri ja varasto" loading="lazy">
+        <img src="assets/kajo_valot.jpg" alt="Ylläs Kajon pihapiiri ja varasto" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon pihapiiri ja varasto" loading="lazy">
+        <img src="assets/revot_3.jpg" alt="Ylläs Kajon pihapiiri ja varasto" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon pihapiiri ja varasto" loading="lazy">
+    </div>
+    <div class="gallery" data-gallery-panel="sisatilat" hidden>
+        <img class="big" src="assets/Yllas Kajo-33.jpg" alt="Ylläs Kajon keittiö, ruokailutila ja olohuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon keittiö, ruokailutila ja olohuone" loading="lazy">
+        <img src="assets/Yllas Kajo-35.jpg" alt="Ylläs Kajon olohuone ja portaat parvelle" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon olohuone ja portaat parvelle" loading="lazy">
+        <img src="assets/Yllas Kajo-28.jpg" alt="Ylläs Kajon ruokapöytä" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon ruokapöytä" loading="lazy">
+        <img src="assets/Yllas Kajo-30.jpg" alt="Ylläs Kajon ruokapöytä" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon ruokapöytä" loading="lazy">
+        <img src="assets/Yllas Kajo-32.jpg" alt="Ylläs Kajon ruokapöytä" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon ruokapöytä" loading="lazy">
+        <img src="assets/Yllas Kajo-6.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
+        <img src="assets/Yllas Kajo-17.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
+        <img src="assets/Yllas Kajo-22.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
+        <img src="assets/Yllas Kajo-21.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
+        <img src="assets/Yllas Kajo-12.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
+        <img src="assets/Yllas Kajo-8.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
+        <img src="assets/Yllas Kajo-16.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
+        <img src="assets/Yllas Kajo-15.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
+    </div>
+    <div class="gallery" data-gallery-panel="ymparisto" hidden>
+        <img class="big" src="assets/Yllas Kajo-11.jpg" alt="Metsäinen maisema Ylläs Kajon ympäristössä" tabindex="0" role="button" aria-label="Suurenna kuva: metsäinen maisema Ylläs Kajon ympäristössä" loading="lazy">
+        <img src="assets/tunturi_1.jpg" alt="Metsäinen maisema Ylläs Kajon ympäristössä" tabindex="0" role="button" aria-label="Suurenna kuva: metsäinen maisema Ylläs Kajon ympäristössä" loading="lazy">
+        <img src="assets/tunturi_2.jpg" alt="Metsäinen maisema Ylläs Kajon ympäristössä" tabindex="0" role="button" aria-label="Suurenna kuva: metsäinen maisema Ylläs Kajon ympäristössä" loading="lazy">
+        <img src="assets/tunturi_3.jpg" alt="Metsäinen maisema Ylläs Kajon ympäristössä" tabindex="0" role="button" aria-label="Suurenna kuva: metsäinen maisema Ylläs Kajon ympäristössä" loading="lazy">
+        <img src="assets/tunturi_4.jpg" alt="Metsäinen maisema Ylläs Kajon ympäristössä" tabindex="0" role="button" aria-label="Suurenna kuva: metsäinen maisema Ylläs Kajon ympäristössä" loading="lazy">
+        <img src="assets/tunturi_5.jpg" alt="Metsäinen maisema Ylläs Kajon ympäristössä" tabindex="0" role="button" aria-label="Suurenna kuva: metsäinen maisema Ylläs Kajon ympäristössä" loading="lazy">
+        <img src="assets/bike_1.jpg" alt="Metsäinen maisema Ylläs Kajon ympäristössä" tabindex="0" role="button" aria-label="Suurenna kuva: metsäinen maisema Ylläs Kajon ympäristössä" loading="lazy">
+        <img src="assets/bikepark.jpg" alt="Metsäinen maisema Ylläs Kajon ympäristössä" tabindex="0" role="button" aria-label="Suurenna kuva: metsäinen maisema Ylläs Kajon ympäristössä" loading="lazy">
+        <img src="assets/drone_1.jpg" alt="Metsäinen maisema Ylläs Kajon ympäristössä" tabindex="0" role="button" aria-label="Suurenna kuva: metsäinen maisema Ylläs Kajon ympäristössä" loading="lazy">
+        <img src="assets/gondoli_1.jpg" alt="Metsäinen maisema Ylläs Kajon ympäristössä" tabindex="0" role="button" aria-label="Suurenna kuva: metsäinen maisema Ylläs Kajon ympäristössä" loading="lazy">
+    </div>
+</main>
+
+<nav aria-label="Päänavigaatio">
+    <a href="index.html#koti">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7"></path><path d="M5 9v12h14V9"></path><path d="M9 21v-8h6v8"></path></svg>
+        <span>Koti</span>
+    </a>
+    <a href="ohjeet.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"></path><path d="M3 5.5A8 8 0 0 1 12 7a8 8 0 0 1 9-1.5V19a8 8 0 0 0-9 1.5A8 8 0 0 0 3 19z"></path></svg>
+        <span>Ohjeet</span>
+    </a>
+    <a href="saannot.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="18" rx="2"></rect><path d="M9 4V2h6v2"></path><path d="M9 10h6M9 14h6"></path></svg>
+        <span>Säännöt</span>
+    </a>
+    <a href="paikat.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3z"></path><path d="M9 3v15M15 6v15"></path></svg>
+        <span>Paikat</span>
+    </a>
+    <a href="galleria.html" aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><path d="m21 15-5-5L5 21"></path></svg>
+        <span>Galleria</span>
+    </a>
+    <a href="info.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg>
+        <span>Info</span>
+    </a>
+</nav>
+
+<script>
+const lightbox = document.getElementById('lightbox');
+const lightboxStage = document.getElementById('lightboxStage');
+const lightboxImage = document.getElementById('lightboxImg');
+const previousImage = document.getElementById('lightboxPreviousImg');
+const nextImage = document.getElementById('lightboxNextImg');
+const closeButton = document.getElementById('lightboxClose');
+const previousButton = document.getElementById('lightboxPrevious');
+const nextButton = document.getElementById('lightboxNext');
+let previouslyFocusedImage;
+let currentImages = [];
+let currentImageIndex = -1;
+let swipeStart;
+let isSliding = false;
+let slideTimeout;
+
+const galleryTabs = [...document.querySelectorAll('[data-gallery-tab]')];
+const galleryPanels = [...document.querySelectorAll('[data-gallery-panel]')];
+
+galleryTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        const category = tab.dataset.galleryTab;
+        galleryTabs.forEach(item => {
+            item.setAttribute('aria-pressed', String(item === tab));
+        });
+        galleryPanels.forEach(panel => {
+            panel.hidden = panel.dataset.galleryPanel !== category;
+        });
+    });
+});
+
+function closeLightbox() {
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('lightbox-open');
+    window.clearTimeout(slideTimeout);
+    isSliding = false;
+    lightboxStage.classList.remove('is-sliding');
+    resetImagePositions();
+    currentImages = [];
+    currentImageIndex = -1;
+    swipeStart = null;
+    if (previouslyFocusedImage) previouslyFocusedImage.focus();
+}
+
+function openLightbox(image) {
+    previouslyFocusedImage = image;
+    currentImages = [...image.closest('.gallery').querySelectorAll('img')];
+    currentImageIndex = currentImages.indexOf(image);
+    lightboxImage.src = image.src;
+    lightboxImage.alt = image.alt;
+    updateAdjacentImages();
+    resetImagePositions();
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('lightbox-open');
+    closeButton.focus();
+}
+
+function updateAdjacentImages() {
+    const previousIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
+    const nextIndex = (currentImageIndex + 1) % currentImages.length;
+    const previous = currentImages[previousIndex];
+    const next = currentImages[nextIndex];
+    previousImage.src = previous.src;
+    nextImage.src = next.src;
+}
+
+function resetImagePositions() {
+    lightboxStage.classList.remove('is-sliding');
+    [lightboxImage, previousImage, nextImage].forEach(image => {
+        image.style.transform = '';
+    });
+    previousImage.style.visibility = 'hidden';
+    nextImage.style.visibility = 'hidden';
+}
+
+function returnImageToRest() {
+    lightboxStage.classList.add('is-sliding');
+    [lightboxImage, previousImage, nextImage].forEach(image => {
+        image.style.transform = '';
+    });
+    window.clearTimeout(slideTimeout);
+    slideTimeout = window.setTimeout(() => {
+        previousImage.style.visibility = 'hidden';
+        nextImage.style.visibility = 'hidden';
+        lightboxStage.classList.remove('is-sliding');
+    }, 260);
+}
+
+function showAdjacentImage(direction, dragDistance = 0) {
+    if (currentImages.length < 2 || isSliding) return;
+
+    const width = lightboxStage.getBoundingClientRect().width;
+    if (!width) return;
+
+    isSliding = true;
+    const outgoingOffset = -direction * width;
+    const incomingImage = direction > 0 ? nextImage : previousImage;
+    const incomingOffset = direction * width;
+
+    if (dragDistance) {
+        lightboxImage.style.transform = `translate3d(${dragDistance}px, 0, 0)`;
+        incomingImage.style.visibility = 'visible';
+        incomingImage.style.transform = `translate3d(${incomingOffset + dragDistance}px, 0, 0)`;
+    } else {
+        resetImagePositions();
+        incomingImage.style.visibility = 'visible';
+        incomingImage.style.transform = `translate3d(${incomingOffset}px, 0, 0)`;
+        lightboxStage.offsetWidth;
+    }
+
+    lightboxStage.classList.add('is-sliding');
+    lightboxImage.style.transform = `translate3d(${outgoingOffset}px, 0, 0)`;
+    incomingImage.style.transform = 'translate3d(0, 0, 0)';
+
+    window.clearTimeout(slideTimeout);
+    slideTimeout = window.setTimeout(() => {
+        currentImageIndex = (currentImageIndex + direction + currentImages.length) % currentImages.length;
+        const image = currentImages[currentImageIndex];
+        lightboxImage.src = image.src;
+        lightboxImage.alt = image.alt;
+        updateAdjacentImages();
+        resetImagePositions();
+        isSliding = false;
+    }, 260);
+}
+
+document.querySelectorAll('.gallery img').forEach(image => {
+    image.addEventListener('click', () => openLightbox(image));
+    image.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openLightbox(image);
+        }
+    });
+});
+
+lightboxStage.addEventListener('pointerdown', event => {
+    if (!event.isPrimary || !['touch', 'pen'].includes(event.pointerType)) return;
+    if (isSliding) return;
+    swipeStart = {
+        x: event.clientX,
+        y: event.clientY,
+        pointerId: event.pointerId,
+        direction: 0
+    };
+});
+
+document.addEventListener('pointerup', event => {
+    if (!swipeStart || swipeStart.pointerId !== event.pointerId) return;
+    const deltaX = event.clientX - swipeStart.x;
+    const deltaY = event.clientY - swipeStart.y;
+    swipeStart = null;
+    if (Math.abs(deltaX) < 48 || Math.abs(deltaX) < Math.abs(deltaY) * 1.25) {
+        returnImageToRest();
+        return;
+    }
+    const direction = deltaX < 0 ? 1 : -1;
+    showAdjacentImage(direction, deltaX);
+});
+
+document.addEventListener('pointercancel', () => {
+    swipeStart = null;
+    resetImagePositions();
+});
+
+lightboxStage.addEventListener('pointermove', event => {
+    if (!swipeStart || swipeStart.pointerId !== event.pointerId || isSliding) return;
+    const deltaX = event.clientX - swipeStart.x;
+    const deltaY = event.clientY - swipeStart.y;
+    if (Math.abs(deltaX) < 6 && Math.abs(deltaY) < 6) return;
+    if (Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+    const direction = deltaX < 0 ? 1 : -1;
+    if (swipeStart.direction !== direction) {
+        resetImagePositions();
+        swipeStart.direction = direction;
+        const adjacentImage = direction > 0 ? nextImage : previousImage;
+        adjacentImage.style.visibility = 'visible';
+    }
+
+    const incomingImage = direction > 0 ? nextImage : previousImage;
+    const width = lightboxStage.getBoundingClientRect().width;
+    lightboxImage.style.transform = `translate3d(${deltaX}px, 0, 0)`;
+    incomingImage.style.transform = `translate3d(${direction * width + deltaX}px, 0, 0)`;
+});
+
+lightboxStage.addEventListener('pointerleave', event => {
+    if (event.pointerType === 'mouse' && swipeStart) swipeStart = null;
+});
+
+closeButton.addEventListener('click', closeLightbox);
+previousButton.addEventListener('click', () => showAdjacentImage(-1));
+nextButton.addEventListener('click', () => showAdjacentImage(1));
+lightbox.addEventListener('click', event => {
+    if (event.target === lightbox) closeLightbox();
+});
+document.addEventListener('keydown', event => {
+    if (lightbox.getAttribute('aria-hidden') !== 'false') return;
+    if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        showAdjacentImage(1);
+        return;
+    }
+    if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        showAdjacentImage(-1);
+        return;
+    }
+    if (event.key === 'Escape' && lightbox.getAttribute('aria-hidden') === 'false') {
+        closeLightbox();
+    }
+});
+</script>
+<script src="assets/site.js"></script>
+</body>
+</html>

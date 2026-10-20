@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f6f3ee">
+<title>Ylläs Kajo | Vierasopas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg: #f6f3ee;
+    --forest: #31453a;
+    --wood: #9a7552;
+    --light: #fff;
+    --text: #27323a;
+    --page-gutter: clamp(16px, 5vw, 40px);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 24px;
+    scroll-padding-bottom: 96px;
+}
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, sans-serif;
+    line-height: 1.6;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+.hero {
+    display: flex;
+    min-height: 100vh;
+    min-height: 100svh;
+    align-items: flex-end;
+    background:
+        linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .55)),
+        url('assets/Yllas Kajo-11.jpg') center / cover no-repeat;
+    color: var(--light);
+}
+
+.hero-inner {
+    width: min(100%, 1200px);
+    margin: 0 auto;
+    padding: clamp(32px, 8vw, 72px) var(--page-gutter) clamp(56px, 10vw, 96px);
+}
+
+.hero-type {
+    display: inline-flex;
+    padding: 4px 14px;
+    border: 1px solid rgba(255, 255, 255, .55);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, .16);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+}
+
+.hero h1 {
+    margin: 10px 0 8px;
+    font-family: Georgia, serif;
+    font-size: clamp(2.4rem, 9vw, 4.6rem);
+    font-weight: 400;
+    letter-spacing: -.05em;
+    line-height: 1.08;
+}
+
+.hero h1 em {
+    font-weight: 400;
+}
+
+.hero-location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    font-size: .95rem;
+    font-weight: 500;
+}
+
+.hero-location svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+}
+
+.welcome {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: min(calc(100% - 32px), 1000px);
+    align-items: flex-start;
+    gap: 14px;
+    margin: -20px auto 0;
+    padding: 18px;
+    border-radius: 22px;
+    background: var(--light);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .1);
+}
+
+.welcome-icon {
+    display: grid;
+    width: 48px;
+    height: 48px;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 50%;
+    background: #171717;
+    color: var(--light);
+}
+
+.welcome-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+}
+
+.welcome-copy {
+    min-width: 0;
+    color: #555;
+    font-size: .92rem;
+    line-height: 1.55;
+}
+
+.welcome-copy p {
+    margin: 0;
+}
+
+.welcome-copy .welcome-signature {
+    margin-top: 6px;
+    color: #333;
+    font-family: Georgia, serif;
+    font-size: 1.05rem;
+    font-style: italic;
+}
+
+.btn {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border-radius: 40px;
+    background: var(--light);
+    color: #222;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+}
+
+nav {
+    position: fixed;
+    z-index: 999;
+    right: max(8px, env(safe-area-inset-right));
+    bottom: max(8px, env(safe-area-inset-bottom));
+    left: max(8px, env(safe-area-inset-left));
+    display: grid;
+    width: min(calc(100% - 16px), 520px);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    margin: 0 auto;
+    padding: 6px;
+    border: 1px solid rgba(226, 219, 210, .9);
+    border-radius: 32px;
+    background: rgba(255, 255, 255, .94);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .16);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+}
+
+nav a {
+    display: flex;
+    min-width: 0;
+    min-height: 54px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 4px 2px;
+    border-radius: 22px;
+    color: #252525;
+    font-size: .65rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+nav a svg {
+    width: 21px;
+    height: 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+}
+
+nav a[aria-current="location"],
+nav a[aria-current="page"] {
+    background: #171717;
+    color: var(--light);
+}
+
+nav a:focus-visible,
+.btn:focus-visible {
+    outline: 3px solid var(--wood);
+    outline-offset: 3px;
+}
+
+section {
+    width: min(100%, 1248px);
+    margin: 0 auto;
+    padding: clamp(48px, 8vw, 80px) var(--page-gutter);
+    scroll-margin-top: 72px;
+}
+
+.title {
+    margin: 0 0 25px;
+    font-size: clamp(1.7rem, 5vw, 2.2rem);
+    line-height: 1.2;
+}
+
+.arrival-section {
+    padding-top: 36px;
+}
+
+.arrival-card {
+    padding: 14px;
+    border: 1px solid #e6ddd3;
+    border-radius: 20px;
+    background: var(--light);
+}
+
+.arrival-time {
+    display: flex;
+    min-height: 76px;
+    align-items: stretch;
+    padding: 10px 14px;
+    border-radius: 15px;
+    background: #f4f0e8;
+}
+
+.arrival-time > div {
+    flex: 1;
+    align-content: center;
+}
+
+.arrival-time > div + div {
+    padding-left: 14px;
+    border-left: 1px solid #e6ddd3;
+}
+
+.arrival-time-label {
+    display: block;
+    color: #252525;
+    font-size: .67rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.arrival-time-value {
+    display: block;
+    color: #252525;
+    font-family: Georgia, serif;
+    font-size: 1.8rem;
+    line-height: 1.15;
+}
+
+.arrival-row {
+    display: flex;
+    width: 100%;
+    min-height: 65px;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border: 0;
+    border-bottom: 1px solid #eee7df;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.arrival-row:last-child {
+    border-bottom: 0;
+}
+
+.arrival-row-icon {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 13px;
+    background: #f3ecd4;
+    color: #806718;
+}
+
+.arrival-row-icon svg,
+.arrival-chevron {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+}
+
+.arrival-row-copy {
+    display: grid;
+    min-width: 0;
+    flex: 1;
+    gap: 1px;
+}
+
+.arrival-row-copy strong {
+    color: #252525;
+    font-size: .92rem;
+    font-weight: 600;
+}
+
+.arrival-row-copy span {
+    overflow: hidden;
+    color: #666;
+    font-size: .76rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.arrival-chevron {
+    flex: 0 0 auto;
+    color: #b8b0a6;
+}
+
+.arrival-row:focus-visible,
+.sheet-close:focus-visible {
+    outline: 3px solid var(--wood);
+    outline-offset: 3px;
+}
+
+.bottom-sheet {
+    position: fixed;
+    inset: auto 0 0;
+    width: min(100%, 600px);
+    max-width: none;
+    max-height: min(85svh, 600px);
+    margin: 0 auto;
+    padding: 14px 14px max(18px, env(safe-area-inset-bottom));
+    overflow: auto;
+    border: 0;
+    border-radius: 24px 24px 0 0;
+    background: #f6f3ee;
+    color: var(--text);
+    box-shadow: 0 -12px 40px rgba(0, 0, 0, .16);
+}
+
+.bottom-sheet[open] {
+    animation: sheet-rise .24s ease-out;
+}
+
+.bottom-sheet::backdrop {
+    background: rgba(0, 0, 0, .42);
+}
+
+.sheet-handle {
+    width: 40px;
+    height: 5px;
+    margin: 0 auto 18px;
+    border-radius: 10px;
+    background: #c9c6c1;
+}
+
+.sheet-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border: 1px solid #e6ddd3;
+    border-radius: 50%;
+    background: var(--light);
+    color: #252525;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.sheet-card {
+    padding: 20px;
+    border: 1px solid #e6ddd3;
+    border-radius: 18px;
+    background: var(--light);
+}
+
+.sheet-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 16px;
+    padding-right: 38px;
+    color: #252525;
+    font-size: 1.3rem;
+    font-weight: 400;
+    letter-spacing: -.04em;
+}
+
+.sheet-title .arrival-row-icon {
+    width: 44px;
+    height: 44px;
+}
+
+.sheet-copy {
+    color: #4d5961;
+    font-size: .9rem;
+    line-height: 1.7;
+}
+
+.sheet-copy p {
+    margin: 0 0 10px;
+}
+
+.sheet-copy p:last-child {
+    margin-bottom: 0;
+}
+
+@keyframes sheet-rise {
+    from { transform: translateY(24px); opacity: .7; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 20px;
+}
+
+.card {
+    min-width: 0;
+    padding: clamp(20px, 4vw, 28px);
+    border-radius: 22px;
+    background: var(--light);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+}
+
+.feature {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    align-items: center;
+    gap: clamp(24px, 5vw, 40px);
+}
+
+.feature img {
+    width: 100%;
+    border-radius: 24px;
+    object-fit: cover;
+}
+
+.feature p,
+.banner p {
+    margin-top: 0;
+}
+
+.checklist label {
+    display: flex;
+    min-height: 48px;
+    align-items: center;
+    gap: 12px;
+    margin: 8px 0;
+    cursor: pointer;
+}
+
+.checklist input {
+    width: 22px;
+    height: 22px;
+    flex: 0 0 auto;
+    accent-color: var(--forest);
+}
+
+.banner {
+    display: flex;
+    min-height: 360px;
+    align-items: flex-end;
+    padding: clamp(24px, 6vw, 40px);
+    border-radius: 28px;
+    background:
+        linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .55)),
+        url('assets/Yllas Kajo-37.jpg') center / cover no-repeat;
+    color: var(--light);
+}
+
+.banner h2 {
+    font-size: clamp(1.7rem, 5vw, 2.2rem);
+    line-height: 1.2;
+}
+
+footer {
+    padding: 48px 20px 120px;
+    background: var(--forest);
+    color: var(--light);
+    text-align: center;
+}
+
+@media (max-width: 760px) {
+    html {
+        scroll-padding-top: 16px;
+        scroll-padding-bottom: 88px;
+    }
+
+    .hero {
+        min-height: 42vh;
+        min-height: 42svh;
+    }
+
+    .hero-inner {
+        padding-top: 20px;
+        padding-bottom: 36px;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.1rem, 8vw, 3.2rem);
+    }
+
+    .welcome {
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .feature {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .feature img {
+        max-height: 420px;
+    }
+
+    .arrival-section {
+        padding-top: 28px;
+    }
+
+    .banner {
+        min-height: 320px;
+        border-radius: 22px;
+    }
+}
+
+@media (max-width: 420px) {
+    .cards {
+        gap: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .bottom-sheet[open] {
+        animation: none;
+    }
+}
+</style>
+</head>
+<body>
+<header class="hero" id="koti">
+    <div class="hero-inner">
+        <h1>Ylläs Kajo</h1>
+        <p class="hero-location">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+            Ylläsjärvi
+        </p>
+    </div>
+</header>
+
+<nav aria-label="Päänavigaatio">
+    <a href="#koti" aria-current="location">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7"></path><path d="M5 9v12h14V9"></path><path d="M9 21v-8h6v8"></path></svg>
+        <span>Koti</span>
+    </a>
+    <a href="ohjeet.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"></path><path d="M3 5.5A8 8 0 0 1 12 7a8 8 0 0 1 9-1.5V19a8 8 0 0 0-9 1.5A8 8 0 0 0 3 19z"></path></svg>
+        <span>Ohjeet</span>
+    </a>
+    <a href="saannot.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="18" rx="2"></rect><path d="M9 4V2h6v2"></path><path d="M9 10h6M9 14h6"></path></svg>
+        <span>Säännöt</span>
+    </a>
+    <a href="paikat.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3z"></path><path d="M9 3v15M15 6v15"></path></svg>
+        <span>Paikat</span>
+    </a>
+    <a href="galleria.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><path d="m21 15-5-5L5 21"></path></svg>
+        <span>Galleria</span>
+    </a>
+    <a href="info.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg>
+        <span>Info</span>
+    </a>
+</nav>
+
+<main>
+    <aside class="welcome" aria-label="Tervetulotoivotus">
+        <span class="welcome-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M5 12 12 5l7 7-7 7z"></path><path d="m12 5 2-3M19 12l3-2M5 12l-3 2M12 19l-2 3"></path><path d="M17 4v3M18.5 5.5h-3"></path></svg>
+        </span>
+        <div class="welcome-copy">
+            <p>Tämä mökki päätyi meille rakkaudesta pohjoisen rauhaan, tuntureihin ja hiljaisuuteen. Toivomme, että viihdytte täällä yhtä hyvin kuin me.
+Ottakaa rennosti, hengittäkää syvään ja antakaa Lapin lumon viedä mukanaan.</p>
+            <p class="welcome-signature">– Riikka & Valtteri</p>
+        </div>
+    </aside>
+
+    <section id="saapuminen" class="arrival-section">
+        <h2 class="title">Saapuminen</h2>
+        <div class="arrival-card">
+            <div class="arrival-time">
+                <div>
+                    <span class="arrival-time-label">Saapuminen</span>
+                    <span class="arrival-time-value">17:00</span>
+                </div>
+                <div>
+                    <span class="arrival-time-label">Lähtö</span>
+                    <span class="arrival-time-value">11:00</span>
+                </div>
+            </div>
+
+            <a class="arrival-row" href="https://www.google.com/maps/search/?api=1&amp;query=Yll%C3%A4s%20Kajo%2C%20Yll%C3%A4sj%C3%A4rvi" aria-label="Avaa Ylläs Kajo kartalla Google Mapsissa">
+                <span class="arrival-row-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg></span>
+                <span class="arrival-row-copy"><strong>Ylläsjärvi</strong><span>Avaa kartalla</span></span>
+                <svg class="arrival-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </a>
+
+            <button class="arrival-row" type="button" data-sheet="arrivalSheet">
+                <span class="arrival-row-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 6a5 5 0 0 0-6.5 6.5L3 17l4 4 4.5-4.5A5 5 0 0 0 18 10l-3 3-4-4z"></path><circle cx="15" cy="8" r="1"></circle></svg></span>
+                <span class="arrival-row-copy"><strong>Saapumisohjeet</strong><span>Sisäänkirjautuminen klo 17 alkaen...</span></span>
+                <svg class="arrival-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+
+            <button class="arrival-row" type="button" data-sheet="parkingSheet">
+                <span class="arrival-row-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 13l2-6h14l2 6v6h-2"></path><path d="M5 19H3v-6h18v6h-2M7 19h10"></path><circle cx="7" cy="16" r="1"></circle><circle cx="17" cy="16" r="1"></circle></svg></span>
+                <span class="arrival-row-copy"><strong>Pysäköinti</strong><span>Pihassa on maksuton pysäköinti...</span></span>
+                <svg class="arrival-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+        </div>
+    </section>
+
+</main>
+
+<footer id="info">
+    <h2>Ylläs Kajo</h2>
+    <p>Tunturien rauhaa • Lapin elämyksiä • Ylläsjärvi</p>
+</footer>
+
+<dialog id="arrivalSheet" class="bottom-sheet" aria-labelledby="arrivalSheetTitle">
+    <div class="sheet-handle" aria-hidden="true"></div>
+    <button class="sheet-close" type="button" aria-label="Sulje">&times;</button>
+    <div class="sheet-card">
+        <h2 class="sheet-title" id="arrivalSheetTitle">
+            <span class="arrival-row-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 6a5 5 0 0 0-6.5 6.5L3 17l4 4 4.5-4.5A5 5 0 0 0 18 10l-3 3-4-4z"></path><circle cx="15" cy="8" r="1"></circle></svg></span>
+            Saapumisohjeet
+        </h2>
+        <div class="sheet-copy">
+            <p><b>Avaimet:</b> Pidä aina yksi avain ulko-oven viereisessä avainlaatikossa. Sisällä mökissä on mökin ulko-oveen toinen avain sekä varaston avain.</p>
+            <p><b>Sisäänkirjautuminen:</b> klo 17.00 alkaen</p>
+        </div>
+    </div>
+</dialog>
+
+<dialog id="parkingSheet" class="bottom-sheet" aria-labelledby="parkingSheetTitle">
+    <div class="sheet-handle" aria-hidden="true"></div>
+    <button class="sheet-close" type="button" aria-label="Sulje">&times;</button>
+    <div class="sheet-card">
+        <h2 class="sheet-title" id="parkingSheetTitle">
+            <span class="arrival-row-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 13l2-6h14l2 6v6h-2"></path><path d="M5 19H3v-6h18v6h-2M7 19h10"></path><circle cx="7" cy="16" r="1"></circle><circle cx="17" cy="16" r="1"></circle></svg></span>
+            Pysäköinti
+        </h2>
+        <div class="sheet-copy">
+            <p>Pihassa on maksuton pysäköinti kahdelle autolle sekä sähköauton latauspaikka. Latauksesta on pieni erillinen maksu, 10€/12h.</p>
+        </div>
+    </div>
+</dialog>
+
+<script>
+document.querySelectorAll('[data-sheet]').forEach(trigger => {
+    const sheet = document.getElementById(trigger.dataset.sheet);
+    const closeButton = sheet.querySelector('.sheet-close');
+
+    trigger.addEventListener('click', () => sheet.showModal());
+    closeButton.addEventListener('click', () => sheet.close());
+    sheet.addEventListener('click', event => {
+        if (event.target === sheet) sheet.close();
+    });
+});
+
+const menuLinks = [...document.querySelectorAll('nav a')];
+const menuTargets = menuLinks
+    .map(link => link.getAttribute('href'))
+    .filter(href => href.startsWith('#'))
+    .map(href => document.querySelector(href))
+    .filter(target => target !== null);
+
+const menuObserver = new IntersectionObserver(entries => {
+    const visibleTarget = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((first, second) => second.intersectionRatio - first.intersectionRatio)[0];
+
+    if (!visibleTarget) return;
+
+    menuLinks.forEach(link => {
+        if (link.getAttribute('href') === `#${visibleTarget.target.id}`) {
+            link.setAttribute('aria-current', 'location');
+        } else {
+            link.removeAttribute('aria-current');
+        }
+    });
+}, { rootMargin: '-20% 0px -65% 0px', threshold: [0, .25, .5, .75] });
+
+menuTargets.forEach(target => menuObserver.observe(target));
+</script>
+<script src="assets/site.js"></script>
+</body>
+</html>
