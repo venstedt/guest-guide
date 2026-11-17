@@ -1,6 +1,6 @@
 (() => {
     const translations = new Map(Object.entries({
-        'Ylläs Kajo | Vierasopas': 'Ylläs Kajo | Guest guide',
+        'Ylläs Kajo | Mökkikirja': 'Ylläs Kajo | Guest guide',
         'Talon ohjeet | Ylläs Kajo': 'House guide | Ylläs Kajo',
         'Talon säännöt | Ylläs Kajo': 'House rules | Ylläs Kajo',
         'Paikat | Ylläs Kajo': 'Places | Ylläs Kajo',
