@@ -109,7 +109,7 @@
         'Sisäänkirjautuminen:': 'Check-in:',
         'Parvella on kaksi täysin varusteltua työtilaa. Molemmille löytyy näyttö sekä näppäimistö ja hiiri.': 'There are two fully equipped workspaces in the loft. Each has a monitor, keyboard and mouse.',
         'WiFi-tiedot löydät oppaan etusivulta.': 'You can find the Wi-Fi details on the guide home page.',
-        'WiFi-tiedot löydät Ylläs Kajo -mökkikirjasta.': 'You can find the Wi-Fi details in the Ylläs Kajo guestbook.',
+        'WiFi-tiedot löydät mökissä olevasta paperisesta mökkikirjasta.': 'You can find the Wi-Fi details in the printed guestbook in the cabin.',
         'Lemmikit ovat sallittuja erillisestä 30 euron maksusta.': 'Pets are allowed for an additional fee of €30.',
         'Makuuhuoneen yläkaapista löytyy kaksi suojaa sohvalle, joita toivotaan käytettävän lemmikkien kanssa.': 'There are two sofa covers in the bedroom’s upper cupboard. Please use them when staying with pets.',
         'Kerääthän lemmikin jätökset.': 'Please clean up after your pet.',
@@ -184,7 +184,6 @@
         'Älä laita kuumaa kattilaa tai pannua suoraan työtasolle – käytä pannunalustaa.': 'Do not place hot pots or pans directly on the worktop — use a trivet.',
         'Viemäri': 'Drain',
         'Ethän kaada rasvaa viemäriin.': 'Please do not pour fat or grease down the drain.',
-        'Wi-Fi löytyy mökkikirjasta.': 'The Wi-Fi details are in the cabin information book.',
         'TV ja viihde': 'TV and entertainment',
         'TV toimii kaukosäätimellä. TV on kytketty kotiteatteriin, jolle on oma kaukosäädin.': 'The TV is operated with its remote control. It is connected to a home theatre system with a separate remote.',
         'Google TV Streameristä (valkoinen kaukosäädin) löytyy kattava lista suoratoistopalveluita. Kirjaudu omilla tunnuksilla.': 'The Google TV Streamer (white remote) provides access to a wide range of streaming services. Sign in with your own accounts.',
@@ -360,7 +359,7 @@
         'Safety': 'Sicherheit',
         'There are two fully equipped workspaces in the loft. Each has a monitor, keyboard and mouse.': 'Im Dachgeschoss gibt es zwei voll ausgestattete Arbeitsplätze. Jeder verfügt über einen Monitor, eine Tastatur und eine Maus.',
         'You can find the Wi-Fi details on the guide home page.': 'Die WLAN-Daten finden Sie auf der Startseite des Hausführers.',
-        'You can find the Wi-Fi details in the Ylläs Kajo guestbook.': 'Die WLAN-Daten finden Sie im Gästebuch von Ylläs Kajo.',
+        'You can find the Wi-Fi details in the printed guestbook in the cabin.': 'Die WLAN-Daten finden Sie im gedruckten Gästebuch in der Hütte.',
         'Pets are allowed for an additional fee of €30.': 'Haustiere sind gegen eine zusätzliche Gebühr von 30 € erlaubt.',
         'There are two sofa covers in the bedroom’s upper cupboard. Please use them when staying with pets.': 'Im oberen Schrank im Schlafzimmer liegen zwei Sofabezüge. Bitte verwenden Sie diese, wenn Sie mit Haustieren übernachten.',
         'Please clean up after your pet.': 'Bitte beseitigen Sie die Hinterlassenschaften Ihres Haustiers.',
@@ -435,7 +434,6 @@
         'Do not place hot pots or pans directly on the worktop — use a trivet.': 'Stellen Sie heiße Töpfe oder Pfannen nicht direkt auf die Arbeitsfläche — verwenden Sie einen Untersetzer.',
         'Drain': 'Abfluss',
         'Please do not pour fat or grease down the drain.': 'Bitte gießen Sie kein Fett in den Abfluss.',
-        'The Wi-Fi details are in the cabin information book.': 'Die WLAN-Daten stehen im Hüttenführer.',
         'TV and entertainment': 'Fernsehen und Unterhaltung',
         'The TV is operated with its remote control. It is connected to a home theatre system with a separate remote.': 'Der Fernseher wird mit einer Fernbedienung bedient. Er ist an ein Heimkinosystem angeschlossen, das eine separate Fernbedienung hat.',
         'The Google TV Streamer (white remote) provides access to a wide range of streaming services. Sign in with your own accounts.': 'Der Google TV Streamer (weiße Fernbedienung) bietet eine große Auswahl an Streamingdiensten. Melden Sie sich mit Ihren eigenen Konten an.',
@@ -610,7 +608,7 @@
         'Safety': 'Sécurité',
         'There are two fully equipped workspaces in the loft. Each has a monitor, keyboard and mouse.': 'La mezzanine dispose de deux espaces de travail entièrement équipés. Chacun comprend un écran, un clavier et une souris.',
         'You can find the Wi-Fi details on the guide home page.': 'Les informations Wi-Fi se trouvent sur la page d’accueil du guide.',
-        'You can find the Wi-Fi details in the Ylläs Kajo guestbook.': 'Les informations Wi-Fi se trouvent dans le livret d’accueil de Ylläs Kajo.',
+        'You can find the Wi-Fi details in the printed guestbook in the cabin.': 'Les informations Wi-Fi se trouvent dans le livret d’accueil imprimé, au chalet.',
         'Pets are allowed for an additional fee of €30.': 'Les animaux de compagnie sont acceptés moyennant un supplément de 30 €.',
         'There are two sofa covers in the bedroom’s upper cupboard. Please use them when staying with pets.': 'Deux protections pour le canapé se trouvent dans le placard supérieur de la chambre. Merci de les utiliser si vous séjournez avec un animal.',
         'Please clean up after your pet.': 'Veuillez ramasser les déjections de votre animal.',
@@ -685,7 +683,6 @@
         'Do not place hot pots or pans directly on the worktop — use a trivet.': 'Ne posez pas de casserole ou de poêle chaude directement sur le plan de travail — utilisez un dessous-de-plat.',
         'Drain': 'Évacuation',
         'Please do not pour fat or grease down the drain.': 'Veuillez ne pas verser de graisse dans l’évier.',
-        'The Wi-Fi details are in the cabin information book.': 'Les informations Wi-Fi se trouvent dans le livret du chalet.',
         'TV and entertainment': 'Télévision et divertissement',
         'The TV is operated with its remote control. It is connected to a home theatre system with a separate remote.': 'La télévision se commande avec sa télécommande. Elle est reliée à un système home cinéma doté de sa propre télécommande.',
         'The Google TV Streamer (white remote) provides access to a wide range of streaming services. Sign in with your own accounts.': 'Le Google TV Streamer (télécommande blanche) donne accès à de nombreux services de streaming. Connectez-vous avec vos propres comptes.',
@@ -875,103 +872,6 @@
         });
     }
 
-    const style = document.createElement('style');
-    style.textContent = `
-        .site-topbar {
-            position: sticky;
-            top: 0;
-            z-index: 1200;
-            display: flex;
-            align-items: center;
-            min-height: 56px;
-            padding: 8px clamp(8px, 2vw, 16px);
-            border-bottom: 1px solid #e8e0d7;
-            background: rgba(246, 243, 238, .96);
-            backdrop-filter: blur(10px);
-        }
-        .site-language {
-            display: inline-flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            min-width: 142px;
-            min-height: 40px;
-            padding: 0 12px;
-            border: 1px solid #e8e0d7;
-            border-radius: 999px;
-            background: #fff;
-            color: #171717;
-            font: 600 13px/1 Inter, sans-serif;
-            cursor: pointer;
-        }
-        .site-language:focus-visible,
-        .site-language-option:focus-visible {
-            outline: 3px solid #9a7552;
-            outline-offset: 2px;
-        }
-        .site-language-current,
-        .site-language-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .site-language-current {
-            min-width: 0;
-        }
-        .site-language-name {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .site-language-flag,
-        .site-language-flag svg {
-            display: block;
-            width: 20px;
-            height: 14px;
-            flex: 0 0 auto;
-        }
-        .site-language-chevron {
-            width: 12px;
-            height: 12px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 1.8;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-        .site-language-menu {
-            position: absolute;
-            top: calc(100% - 2px);
-            left: 8px;
-            z-index: 1201;
-            min-width: 142px;
-            padding: 4px;
-            border: 1px solid #e8e0d7;
-            border-radius: 10px;
-            background: #fff;
-            box-shadow: 0 6px 18px rgba(39, 50, 58, .14);
-        }
-        .site-language-menu[hidden] {
-            display: none;
-        }
-        .site-language-option {
-            width: 100%;
-            min-height: 36px;
-            padding: 0 9px;
-            border: 0;
-            border-radius: 6px;
-            background: transparent;
-            color: #171717;
-            font: 500 13px/1.3 Inter, sans-serif;
-            text-align: left;
-            cursor: pointer;
-        }
-        .site-language-option[aria-checked="true"] {
-            background: #eee9e1;
-            font-weight: 700;
-        }
-    `;
-    document.head.append(style);
 
     const languageOptions = [
         {
@@ -1075,5 +975,6 @@
     });
 
     updatePageLanguage(initialLanguage);
+    document.documentElement.classList.remove('i18n-pending');
 })();
 

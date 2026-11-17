@@ -5,9 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#f6f3ee">
 <title>Galleria | Ylläs Kajo</title>
+<meta name="description" content="Kuvia Ylläs Kajosta: piha, sisätilat ja ympäristö.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fi_FI">
+<meta property="og:site_name" content="Ylläs Kajo">
+<meta property="og:title" content="Galleria | Ylläs Kajo">
+<meta property="og:description" content="Kuvia Ylläs Kajosta: piha, sisätilat ja ympäristö.">
+<meta property="og:url" content="https://venstedt.github.io/guest-guide/galleria.html">
+<meta property="og:image" content="https://venstedt.github.io/guest-guide/assets/og-kuva.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<script>
+try {
+    const savedLanguage = localStorage.getItem('yllas-kajo-language');
+    if (savedLanguage && savedLanguage !== 'fi') {
+        document.documentElement.classList.add('i18n-pending');
+        setTimeout(() => document.documentElement.classList.remove('i18n-pending'), 1500);
+    }
+} catch (error) {}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 <style>
 :root {
     --bg: #f6f3ee;
@@ -16,10 +39,6 @@
     --light: #fff;
     --text: #27323a;
     --page-gutter: clamp(16px, 5vw, 40px);
-}
-
-* {
-    box-sizing: border-box;
 }
 
 html {
@@ -232,51 +251,6 @@ body.lightbox-open {
     overflow: hidden;
 }
 
-nav {
-    position: fixed;
-    z-index: 999;
-    right: max(8px, env(safe-area-inset-right));
-    bottom: max(8px, env(safe-area-inset-bottom));
-    left: max(8px, env(safe-area-inset-left));
-    display: grid;
-    width: min(calc(100% - 16px), 520px);
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    margin: 0 auto;
-    padding: 6px;
-    border: 1px solid rgba(226, 219, 210, .9);
-    border-radius: 32px;
-    background: rgba(255, 255, 255, .94);
-    box-shadow: 0 8px 28px rgba(0, 0, 0, .16);
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
-}
-
-nav a {
-    display: flex;
-    min-width: 0;
-    min-height: 54px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    padding: 4px 2px;
-    border-radius: 22px;
-    color: #252525;
-    font-size: .65rem;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-nav a svg {
-    width: 21px;
-    height: 21px;
-    fill: none;
-    stroke: currentColor;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 2;
-}
-
 nav a[aria-current="page"] {
     background: #171717;
     color: var(--light);
@@ -349,29 +323,29 @@ nav a[aria-current="page"] {
         <button type="button" data-gallery-tab="ymparisto" aria-pressed="false">Ympäristö</button>
     </div>
     <div class="gallery" data-gallery-panel="piha">
-        <img class="big" src="assets/thumbs/Yllas Kajo-1.jpg" data-full="assets/Yllas Kajo-1.jpg" alt="Ylläs Kajon lomarakennus ulkoa" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon lomarakennus ulkoa" fetchpriority="high">
-        <img src="assets/thumbs/Yllas Kajo-5.jpg" data-full="assets/Yllas Kajo-5.jpg" alt="Ylläs Kajon pihapiiri ja varasto" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon pihapiiri ja varasto" loading="lazy">
-        <img src="assets/thumbs/Yllas Kajo-2.jpg" data-full="assets/Yllas Kajo-2.jpg" alt="Ylläs Kajon pihapiiri ja varasto" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon pihapiiri ja varasto" loading="lazy">
+        <img class="big" src="assets/thumbs/yllas-kajo-1.jpg" data-full="assets/yllas-kajo-1.jpg" alt="Ylläs Kajon lomarakennus ulkoa" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon lomarakennus ulkoa" fetchpriority="high">
+        <img src="assets/thumbs/yllas-kajo-5.jpg" data-full="assets/yllas-kajo-5.jpg" alt="Ylläs Kajon pihapiiri ja varasto" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon pihapiiri ja varasto" loading="lazy">
+        <img src="assets/thumbs/yllas-kajo-2.jpg" data-full="assets/yllas-kajo-2.jpg" alt="Ylläs Kajon pihapiiri ja varasto" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon pihapiiri ja varasto" loading="lazy">
         <img src="assets/thumbs/kajo_valot.jpg" data-full="assets/kajo_valot.jpg" alt="Ylläs Kajon pihapiiri ja varasto" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon pihapiiri ja varasto" loading="lazy">
         <img src="assets/thumbs/revot_3.jpg" data-full="assets/revot_3.jpg" alt="Ylläs Kajon pihapiiri ja varasto" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon pihapiiri ja varasto" loading="lazy">
     </div>
     <div class="gallery" data-gallery-panel="sisatilat" hidden>
-        <img class="big" src="assets/thumbs/Yllas Kajo-33.jpg" data-full="assets/Yllas Kajo-33.jpg" alt="Ylläs Kajon keittiö, ruokailutila ja olohuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon keittiö, ruokailutila ja olohuone" loading="lazy">
-        <img src="assets/thumbs/Yllas Kajo-35.jpg" data-full="assets/Yllas Kajo-35.jpg" alt="Ylläs Kajon olohuone ja portaat parvelle" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon olohuone ja portaat parvelle" loading="lazy">
-        <img src="assets/thumbs/Yllas Kajo-28.jpg" data-full="assets/Yllas Kajo-28.jpg" alt="Ylläs Kajon ruokapöytä" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon ruokapöytä" loading="lazy">
-        <img src="assets/thumbs/Yllas Kajo-30.jpg" data-full="assets/Yllas Kajo-30.jpg" alt="Ylläs Kajon ruokapöytä" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon ruokapöytä" loading="lazy">
-        <img src="assets/thumbs/Yllas Kajo-32.jpg" data-full="assets/Yllas Kajo-32.jpg" alt="Ylläs Kajon ruokapöytä" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon ruokapöytä" loading="lazy">
-        <img src="assets/thumbs/Yllas Kajo-6.jpg" data-full="assets/Yllas Kajo-6.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
-        <img src="assets/thumbs/Yllas Kajo-17.jpg" data-full="assets/Yllas Kajo-17.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
-        <img src="assets/thumbs/Yllas Kajo-22.jpg" data-full="assets/Yllas Kajo-22.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
-        <img src="assets/thumbs/Yllas Kajo-21.jpg" data-full="assets/Yllas Kajo-21.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
-        <img src="assets/thumbs/Yllas Kajo-12.jpg" data-full="assets/Yllas Kajo-12.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
-        <img src="assets/thumbs/Yllas Kajo-8.jpg" data-full="assets/Yllas Kajo-8.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
-        <img src="assets/thumbs/Yllas Kajo-16.jpg" data-full="assets/Yllas Kajo-16.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
-        <img src="assets/thumbs/Yllas Kajo-15.jpg" data-full="assets/Yllas Kajo-15.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
+        <img class="big" src="assets/thumbs/yllas-kajo-33.jpg" data-full="assets/yllas-kajo-33.jpg" alt="Ylläs Kajon keittiö, ruokailutila ja olohuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon keittiö, ruokailutila ja olohuone" loading="lazy">
+        <img src="assets/thumbs/yllas-kajo-35.jpg" data-full="assets/yllas-kajo-35.jpg" alt="Ylläs Kajon olohuone ja portaat parvelle" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon olohuone ja portaat parvelle" loading="lazy">
+        <img src="assets/thumbs/yllas-kajo-28.jpg" data-full="assets/yllas-kajo-28.jpg" alt="Ylläs Kajon ruokapöytä" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon ruokapöytä" loading="lazy">
+        <img src="assets/thumbs/yllas-kajo-30.jpg" data-full="assets/yllas-kajo-30.jpg" alt="Ylläs Kajon ruokapöytä" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon ruokapöytä" loading="lazy">
+        <img src="assets/thumbs/yllas-kajo-32.jpg" data-full="assets/yllas-kajo-32.jpg" alt="Ylläs Kajon ruokapöytä" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon ruokapöytä" loading="lazy">
+        <img src="assets/thumbs/yllas-kajo-6.jpg" data-full="assets/yllas-kajo-6.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
+        <img src="assets/thumbs/yllas-kajo-17.jpg" data-full="assets/yllas-kajo-17.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
+        <img src="assets/thumbs/yllas-kajo-22.jpg" data-full="assets/yllas-kajo-22.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
+        <img src="assets/thumbs/yllas-kajo-21.jpg" data-full="assets/yllas-kajo-21.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
+        <img src="assets/thumbs/yllas-kajo-12.jpg" data-full="assets/yllas-kajo-12.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
+        <img src="assets/thumbs/yllas-kajo-8.jpg" data-full="assets/yllas-kajo-8.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
+        <img src="assets/thumbs/yllas-kajo-16.jpg" data-full="assets/yllas-kajo-16.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
+        <img src="assets/thumbs/yllas-kajo-15.jpg" data-full="assets/yllas-kajo-15.jpg" alt="Ylläs Kajon makuuhuone" tabindex="0" role="button" aria-label="Suurenna kuva: Ylläs Kajon makuuhuone" loading="lazy">
     </div>
     <div class="gallery" data-gallery-panel="ymparisto" hidden>
-        <img class="big" src="assets/thumbs/Yllas Kajo-11.jpg" data-full="assets/Yllas Kajo-11.jpg" alt="Metsäinen maisema Ylläs Kajon ympäristössä" tabindex="0" role="button" aria-label="Suurenna kuva: metsäinen maisema Ylläs Kajon ympäristössä" loading="lazy">
+        <img class="big" src="assets/thumbs/yllas-kajo-11.jpg" data-full="assets/yllas-kajo-11.jpg" alt="Metsäinen maisema Ylläs Kajon ympäristössä" tabindex="0" role="button" aria-label="Suurenna kuva: metsäinen maisema Ylläs Kajon ympäristössä" loading="lazy">
         <img src="assets/thumbs/tunturi_1.jpg" data-full="assets/tunturi_1.jpg" alt="Metsäinen maisema Ylläs Kajon ympäristössä" tabindex="0" role="button" aria-label="Suurenna kuva: metsäinen maisema Ylläs Kajon ympäristössä" loading="lazy">
         <img src="assets/thumbs/tunturi_2.jpg" data-full="assets/tunturi_2.jpg" alt="Metsäinen maisema Ylläs Kajon ympäristössä" tabindex="0" role="button" aria-label="Suurenna kuva: metsäinen maisema Ylläs Kajon ympäristössä" loading="lazy">
         <img src="assets/thumbs/tunturi_3.jpg" data-full="assets/tunturi_3.jpg" alt="Metsäinen maisema Ylläs Kajon ympäristössä" tabindex="0" role="button" aria-label="Suurenna kuva: metsäinen maisema Ylläs Kajon ympäristössä" loading="lazy">

@@ -1,0 +1,150 @@
+/* Kaikille sivuille yhteiset tyylit. Sivukohtaiset tyylit ovat kunkin sivun <style>-lohkossa. */
+
+* {
+    box-sizing: border-box;
+}
+
+nav {
+    position: fixed;
+    z-index: 999;
+    right: max(8px, env(safe-area-inset-right));
+    bottom: max(8px, env(safe-area-inset-bottom));
+    left: max(8px, env(safe-area-inset-left));
+    display: grid;
+    width: min(calc(100% - 16px), 520px);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    margin: 0 auto;
+    padding: 6px;
+    border: 1px solid rgba(226, 219, 210, .9);
+    border-radius: 32px;
+    background: rgba(255, 255, 255, .94);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .16);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+}
+
+nav a {
+    display: flex;
+    min-width: 0;
+    min-height: 54px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 4px 2px;
+    border-radius: 22px;
+    color: #252525;
+    font-size: .65rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+nav a svg {
+    width: 21px;
+    height: 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+}
+
+/* Piilottaa sivun hetkeksi, kunnes site.js on kääntänyt sen valitulle kielelle (estää suomenkielisen välähdyksen) */
+html.i18n-pending body {
+    visibility: hidden;
+}
+
+/* Kielivalikko (site.js) */
+.site-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 1200;
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+    padding: 8px clamp(8px, 2vw, 16px);
+    border-bottom: 1px solid #e8e0d7;
+    background: rgba(246, 243, 238, .96);
+    backdrop-filter: blur(10px);
+}
+.site-language {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-width: 142px;
+    min-height: 40px;
+    padding: 0 12px;
+    border: 1px solid #e8e0d7;
+    border-radius: 999px;
+    background: #fff;
+    color: #171717;
+    font: 600 13px/1 Inter, sans-serif;
+    cursor: pointer;
+}
+.site-language:focus-visible,
+.site-language-option:focus-visible {
+    outline: 3px solid #9a7552;
+    outline-offset: 2px;
+}
+.site-language-current,
+.site-language-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.site-language-current {
+    min-width: 0;
+}
+.site-language-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.site-language-flag,
+.site-language-flag svg {
+    display: block;
+    width: 20px;
+    height: 14px;
+    flex: 0 0 auto;
+}
+.site-language-chevron {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.site-language-menu {
+    position: absolute;
+    top: calc(100% - 2px);
+    left: 8px;
+    z-index: 1201;
+    min-width: 142px;
+    padding: 4px;
+    border: 1px solid #e8e0d7;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(39, 50, 58, .14);
+}
+.site-language-menu[hidden] {
+    display: none;
+}
+.site-language-option {
+    width: 100%;
+    min-height: 36px;
+    padding: 0 9px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: #171717;
+    font: 500 13px/1.3 Inter, sans-serif;
+    text-align: left;
+    cursor: pointer;
+}
+.site-language-option[aria-checked="true"] {
+    background: #eee9e1;
+    font-weight: 700;
+}

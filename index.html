@@ -5,9 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#f6f3ee">
 <title>Ylläs Kajo | Mökkikirja</title>
+<meta name="description" content="Ylläs Kajon digitaalinen mökkikirja: saapumisohjeet, talon ohjeet ja säännöt, lähialueen paikat ja yhteystiedot.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fi_FI">
+<meta property="og:site_name" content="Ylläs Kajo">
+<meta property="og:title" content="Ylläs Kajo | Mökkikirja">
+<meta property="og:description" content="Ylläs Kajon digitaalinen mökkikirja: saapumisohjeet, talon ohjeet ja säännöt, lähialueen paikat ja yhteystiedot.">
+<meta property="og:url" content="https://venstedt.github.io/guest-guide/">
+<meta property="og:image" content="https://venstedt.github.io/guest-guide/assets/og-kuva.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<script>
+try {
+    const savedLanguage = localStorage.getItem('yllas-kajo-language');
+    if (savedLanguage && savedLanguage !== 'fi') {
+        document.documentElement.classList.add('i18n-pending');
+        setTimeout(() => document.documentElement.classList.remove('i18n-pending'), 1500);
+    }
+} catch (error) {}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 <style>
 :root {
     --bg: #f6f3ee;
@@ -16,10 +39,6 @@
     --light: #fff;
     --text: #27323a;
     --page-gutter: clamp(16px, 5vw, 40px);
-}
-
-* {
-    box-sizing: border-box;
 }
 
 html {
@@ -49,7 +68,7 @@ img {
     align-items: flex-end;
     background:
         linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .55)),
-        url('assets/Yllas Kajo-33.jpg') center / cover no-repeat;
+        url('assets/yllas-kajo-33.jpg') center / cover no-repeat;
     color: var(--light);
 }
 
@@ -168,51 +187,6 @@ img {
     font-weight: 700;
     text-align: center;
     text-decoration: none;
-}
-
-nav {
-    position: fixed;
-    z-index: 999;
-    right: max(8px, env(safe-area-inset-right));
-    bottom: max(8px, env(safe-area-inset-bottom));
-    left: max(8px, env(safe-area-inset-left));
-    display: grid;
-    width: min(calc(100% - 16px), 520px);
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    margin: 0 auto;
-    padding: 6px;
-    border: 1px solid rgba(226, 219, 210, .9);
-    border-radius: 32px;
-    background: rgba(255, 255, 255, .94);
-    box-shadow: 0 8px 28px rgba(0, 0, 0, .16);
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
-}
-
-nav a {
-    display: flex;
-    min-width: 0;
-    min-height: 54px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    padding: 4px 2px;
-    border-radius: 22px;
-    color: #252525;
-    font-size: .65rem;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-nav a svg {
-    width: 21px;
-    height: 21px;
-    fill: none;
-    stroke: currentColor;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 2;
 }
 
 nav a[aria-current="location"],
@@ -509,7 +483,7 @@ section {
     border-radius: 28px;
     background:
         linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .55)),
-        url('assets/Yllas Kajo-37.jpg') center / cover no-repeat;
+        url('assets/yllas-kajo-37.jpg') center / cover no-repeat;
     color: var(--light);
 }
 
@@ -522,7 +496,7 @@ footer {
     padding: 28px 20px 88px;
     background:
         linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .58)),
-        url('assets/Yllas Kajo-36.jpg') center / cover no-repeat;
+        url('assets/yllas-kajo-36.jpg') center / cover no-repeat;
     color: var(--light);
     text-align: left;
 }

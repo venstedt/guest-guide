@@ -5,9 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#f6f3ee">
 <title>Talon ohjeet | Ylläs Kajo</title>
+<meta name="description" content="Ylläs Kajon talon ohjeet: sauna, takka, keittiö, pysäköinti, sähköauton lataus ja lähtölista.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fi_FI">
+<meta property="og:site_name" content="Ylläs Kajo">
+<meta property="og:title" content="Talon ohjeet | Ylläs Kajo">
+<meta property="og:description" content="Ylläs Kajon talon ohjeet: sauna, takka, keittiö, pysäköinti, sähköauton lataus ja lähtölista.">
+<meta property="og:url" content="https://venstedt.github.io/guest-guide/ohjeet.html">
+<meta property="og:image" content="https://venstedt.github.io/guest-guide/assets/og-kuva.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<script>
+try {
+    const savedLanguage = localStorage.getItem('yllas-kajo-language');
+    if (savedLanguage && savedLanguage !== 'fi') {
+        document.documentElement.classList.add('i18n-pending');
+        setTimeout(() => document.documentElement.classList.remove('i18n-pending'), 1500);
+    }
+} catch (error) {}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 <style>
 :root {
     --bg: #f6f3ee;
@@ -15,10 +38,6 @@
     --wood: #9a7552;
     --light: #fff;
     --text: #27323a;
-}
-
-* {
-    box-sizing: border-box;
 }
 
 html {
@@ -340,51 +359,6 @@ a.guide-card:focus-visible {
     to { transform: translateY(0); opacity: 1; }
 }
 
-nav {
-    position: fixed;
-    z-index: 999;
-    right: max(8px, env(safe-area-inset-right));
-    bottom: max(8px, env(safe-area-inset-bottom));
-    left: max(8px, env(safe-area-inset-left));
-    display: grid;
-    width: min(calc(100% - 16px), 520px);
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    margin: 0 auto;
-    padding: 6px;
-    border: 1px solid rgba(226, 219, 210, .9);
-    border-radius: 32px;
-    background: rgba(255, 255, 255, .94);
-    box-shadow: 0 8px 28px rgba(0, 0, 0, .16);
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
-}
-
-nav a {
-    display: flex;
-    min-width: 0;
-    min-height: 54px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    padding: 4px 2px;
-    border-radius: 22px;
-    color: #252525;
-    font-size: .65rem;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-nav a svg {
-    width: 21px;
-    height: 21px;
-    fill: none;
-    stroke: currentColor;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 2;
-}
-
 nav a[aria-current="page"] {
     background: #171717;
     color: var(--light);
@@ -505,7 +479,7 @@ nav a:focus-visible {
         </h2>
         <div class="sheet-copy">
             <p>Parvella on kaksi täysin varusteltua työtilaa. Molemmille löytyy näyttö sekä näppäimistö ja hiiri.</p>
-            <p>WiFi-tiedot löydät Ylläs Kajo -mökkikirjasta.</p>
+            <p>WiFi-tiedot löydät mökissä olevasta paperisesta mökkikirjasta.</p>
         </div>
     </div>
 </dialog>
@@ -813,7 +787,7 @@ nav a:focus-visible {
                 Wi-Fi
             </h3>
             <ul>
-                <li>Wi-Fi löytyy mökkikirjasta.</li>
+                <li>WiFi-tiedot löydät mökissä olevasta paperisesta mökkikirjasta.</li>
             </ul>
         </section>
 
@@ -899,55 +873,18 @@ nav a:focus-visible {
     </a>
 </nav>
 <script>
-const arrivalGuide = document.getElementById('arrivalGuide');
-document.getElementById('openArrivalGuide').addEventListener('click', () => arrivalGuide.showModal());
-document.getElementById('closeArrivalGuide').addEventListener('click', () => arrivalGuide.close());
-arrivalGuide.addEventListener('click', event => {
-    if (event.target === arrivalGuide) arrivalGuide.close();
-});
+document.querySelectorAll('button[aria-haspopup="dialog"][aria-controls]').forEach(button => {
+    const dialog = document.getElementById(button.getAttribute('aria-controls'));
+    const closeButton = document.getElementById(button.id.replace(/^open/, 'close'));
 
-const remoteWorkGuide = document.getElementById('remoteWorkGuide');
-document.getElementById('openRemoteWorkGuide').addEventListener('click', () => remoteWorkGuide.showModal());
-document.getElementById('closeRemoteWorkGuide').addEventListener('click', () => remoteWorkGuide.close());
-remoteWorkGuide.addEventListener('click', event => {
-    if (event.target === remoteWorkGuide) remoteWorkGuide.close();
-});
-
-const petsGuide = document.getElementById('petsGuide');
-document.getElementById('openPetsGuide').addEventListener('click', () => petsGuide.showModal());
-document.getElementById('closePetsGuide').addEventListener('click', () => petsGuide.close());
-petsGuide.addEventListener('click', event => {
-    if (event.target === petsGuide) petsGuide.close();
-});
-
-const wasteGuide = document.getElementById('wasteGuide');
-document.getElementById('openWasteGuide').addEventListener('click', () => wasteGuide.showModal());
-document.getElementById('closeWasteGuide').addEventListener('click', () => wasteGuide.close());
-wasteGuide.addEventListener('click', event => {
-    if (event.target === wasteGuide) wasteGuide.close();
-});
-
-const yardGuide = document.getElementById('yardGuide');
-document.getElementById('openYardGuide').addEventListener('click', () => yardGuide.showModal());
-document.getElementById('closeYardGuide').addEventListener('click', () => yardGuide.close());
-yardGuide.addEventListener('click', event => {
-    if (event.target === yardGuide) yardGuide.close();
-});
-
-const safetyGuide = document.getElementById('safetyGuide');
-document.getElementById('openSafetyGuide').addEventListener('click', () => safetyGuide.showModal());
-document.getElementById('closeSafetyGuide').addEventListener('click', () => safetyGuide.close());
-safetyGuide.addEventListener('click', event => {
-    if (event.target === safetyGuide) safetyGuide.close();
+    button.addEventListener('click', () => dialog.showModal());
+    closeButton.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => {
+        if (event.target === dialog) dialog.close();
+    });
 });
 
 const departureGuide = document.getElementById('departureGuide');
-document.getElementById('openDepartureGuide').addEventListener('click', () => departureGuide.showModal());
-document.getElementById('closeDepartureGuide').addEventListener('click', () => departureGuide.close());
-departureGuide.addEventListener('click', event => {
-    if (event.target === departureGuide) departureGuide.close();
-});
-
 const departureChecks = [...departureGuide.querySelectorAll('.departure-checklist input')];
 const departureProgress = departureGuide.querySelector('.departure-progress [role="progressbar"]');
 const departureProgressValue = departureGuide.querySelector('.departure-progress-value');
@@ -965,55 +902,6 @@ departureChecks.forEach(checkbox => {
                 : document.documentElement.lang === 'en' ? 'completed' : 'tehty';
         departureProgressCount.textContent = `${completed} / ${departureChecks.length} ${countLabel}`;
     });
-});
-
-const saunaGuide = document.getElementById('saunaGuide');
-document.getElementById('openSaunaGuide').addEventListener('click', () => saunaGuide.showModal());
-document.getElementById('closeSaunaGuide').addEventListener('click', () => saunaGuide.close());
-saunaGuide.addEventListener('click', event => {
-    if (event.target === saunaGuide) saunaGuide.close();
-});
-
-const parkingGuide = document.getElementById('parkingGuide');
-document.getElementById('openParkingGuide').addEventListener('click', () => parkingGuide.showModal());
-document.getElementById('closeParkingGuide').addEventListener('click', () => parkingGuide.close());
-parkingGuide.addEventListener('click', event => {
-    if (event.target === parkingGuide) parkingGuide.close();
-});
-
-const fireplaceGuide = document.getElementById('fireplaceGuide');
-document.getElementById('openFireplaceGuide').addEventListener('click', () => fireplaceGuide.showModal());
-document.getElementById('closeFireplaceGuide').addEventListener('click', () => fireplaceGuide.close());
-fireplaceGuide.addEventListener('click', event => {
-    if (event.target === fireplaceGuide) fireplaceGuide.close();
-});
-
-const kitchenGuide = document.getElementById('kitchenGuide');
-document.getElementById('openKitchenGuide').addEventListener('click', () => kitchenGuide.showModal());
-document.getElementById('closeKitchenGuide').addEventListener('click', () => kitchenGuide.close());
-kitchenGuide.addEventListener('click', event => {
-    if (event.target === kitchenGuide) kitchenGuide.close();
-});
-
-const entertainmentGuide = document.getElementById('entertainmentGuide');
-document.getElementById('openEntertainmentGuide').addEventListener('click', () => entertainmentGuide.showModal());
-document.getElementById('closeEntertainmentGuide').addEventListener('click', () => entertainmentGuide.close());
-entertainmentGuide.addEventListener('click', event => {
-    if (event.target === entertainmentGuide) entertainmentGuide.close();
-});
-
-const chargingGuide = document.getElementById('chargingGuide');
-document.getElementById('openChargingGuide').addEventListener('click', () => chargingGuide.showModal());
-document.getElementById('closeChargingGuide').addEventListener('click', () => chargingGuide.close());
-chargingGuide.addEventListener('click', event => {
-    if (event.target === chargingGuide) chargingGuide.close();
-});
-
-const applianceGuide = document.getElementById('applianceGuide');
-document.getElementById('openApplianceGuide').addEventListener('click', () => applianceGuide.showModal());
-document.getElementById('closeApplianceGuide').addEventListener('click', () => applianceGuide.close());
-applianceGuide.addEventListener('click', event => {
-    if (event.target === applianceGuide) applianceGuide.close();
 });
 </script>
 <script src="assets/site.js"></script>
