@@ -94,6 +94,12 @@ h1 {
     text-align: center;
     text-decoration: none;
     cursor: pointer;
+    transition: transform .16s ease, box-shadow .16s ease;
+}
+
+.guide-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 16px rgba(0, 0, 0, .08);
 }
 
 a.guide-card:focus-visible {
@@ -385,7 +391,8 @@ nav a:focus-visible {
         scroll-behavior: auto;
     }
 
-    .departure-progress-value {
+    .departure-progress-value,
+    .guide-card {
         transition: none;
     }
 }
