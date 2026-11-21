@@ -105,6 +105,32 @@ h1 {
     text-decoration: none;
 }
 
+.email-btn {
+    padding: 0;
+    border: 0;
+    background: none;
+    font-family: inherit;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+}
+
+.email-shown {
+    user-select: all;
+    overflow-wrap: anywhere;
+}
+
+.email-note {
+    display: block;
+    margin-top: 4px;
+    color: #666;
+    font-size: .8rem;
+}
+
+.email-note:empty {
+    display: none;
+}
+
 .emergency-card {
     display: flex;
     align-items: center;
@@ -314,7 +340,7 @@ nav a:focus-visible {
             <h2 class="info-label" id="hostLabel">Majoittajasi</h2>
             <div class="info-card">
                 <p class="host-name">Valtteri ja Riikka</p>
-                <a class="host-email" href="mailto:yllaskajo@gmail.com">yllaskajo@gmail.com</a>
+                <button class="host-email email-btn" type="button" data-subject="Ylläs Kajo">Näytä sähköposti</button>
             </div>
         </section>
 
@@ -399,5 +425,38 @@ nav a:focus-visible {
     </a>
 </nav>
 <script src="assets/site.js"></script>
+<script>
+// Sähköposti: osoite kootaan vasta painalluksesta, jotta se ei näy botille sivun HTML:ssä.
+// 1. painallus näyttää ja kopioi osoitteen, 2. avaa sähköpostiohjelman.
+(() => {
+    const emailAddress = () => ['yllas', 'kajo'].join('') + String.fromCharCode(64) + ['gmail', 'com'].join('.');
+    const copiedText = {
+        fi: 'Osoite kopioitu leikepöydälle',
+        en: 'Address copied to clipboard',
+        de: 'Adresse in die Zwischenablage kopiert',
+        fr: 'Adresse copiée dans le presse-papiers'
+    };
+    document.querySelectorAll('.email-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const address = emailAddress();
+            const link = document.createElement('a');
+            link.className = button.className.replace('email-btn', 'email-shown');
+            link.href = 'mailto:' + address + '?subject=' + encodeURIComponent(button.dataset.subject || '');
+            link.textContent = address;
+            const note = document.createElement('span');
+            note.className = 'email-note';
+            note.setAttribute('role', 'status');
+            button.replaceWith(link);
+            link.after(note);
+            link.focus();
+            try {
+                navigator.clipboard.writeText(address).then(() => {
+                    note.textContent = copiedText[document.documentElement.lang] || copiedText.fi;
+                }, () => {});
+            } catch (error) {}
+        });
+    });
+})();
+</script>
 </body>
 </html>
